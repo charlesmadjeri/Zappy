@@ -28,4 +28,5 @@ jobs:
       env:
         DESTINATION_REPO_PAT: ${{ secrets.DESTINATION_REPO_PAT }}
       run: |
-        git push --mirror https://${DESTINATION_REPO_PAT}
+        git push --mirror https://charlesmadjeri:${{ secrets.DESTINATION_REPO_PAT }}@github.com/EpitechPromo2027/B-YEP-400-LYN-4-1-zappy-maksen.mofredj.git
+
