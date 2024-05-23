@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Change this to the branch you want to mirror
   schedule:
-    - cron: '0 * * * *'  # Run every hour
+    - cron: '0 * * * *'  # Run every hour (adjust as necessary)
 
 jobs:
   mirror:
@@ -15,28 +15,19 @@ jobs:
     - name: Checkout Source Repository
       uses: actions/checkout@v2
 
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        cat ~/.ssh/id_rsa
+
     - name: Set up Git
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Check if remote exists
-      id: check-remote
-      run: |
-        if git remote | grep mirror; then
-          echo "::set-output name=mirror_exists::yes"
-        else
-          echo "::set-output name=mirror_exists::no"
-        fi
-      continue-on-error: true
-
-    - name: Add mirror remote if not exists
-      if: steps.check-remote.outputs.mirror_exists == 'no'
-      run: |
-        git remote add mirror https://${{ secrets.DESTINATION_REPO_PAT }}@github.com/EpitechPromo2027/B-YEP-400-LYN-4-1-zappy-maksen.mofredj.git
-
     - name: Push to mirror
-      env:
-        DESTINATION_REPO_PAT: ${{ secrets.DESTINATION_REPO_PAT }}
       run: |
         git push --mirror mirror
