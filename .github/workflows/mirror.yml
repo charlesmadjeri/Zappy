@@ -24,16 +24,16 @@ jobs:
       id: check-remote
       run: |
         if git remote | grep mirror; then
-          echo "remote exists"
+          echo "::set-output name=mirror_exists::yes"
         else
-          echo "no remote"
+          echo "::set-output name=mirror_exists::no"
         fi
       continue-on-error: true
 
     - name: Add mirror remote if not exists
-      if: steps.check-remote.outputs.mirror == 'no remote'
+      if: steps.check-remote.outputs.mirror_exists == 'no'
       run: |
-         git remote add mirror https://${{ secrets.DESTINATION_REPO_PAT }}@github.com/EpitechPromo2027/B-YEP-400-LYN-4-1-zappy-maksen.mofredj.git
+        git remote add mirror https://${{ secrets.DESTINATION_REPO_PAT }}@github.com/EpitechPromo2027/B-YEP-400-LYN-4-1-zappy-maksen.mofredj.git
 
     - name: Push to mirror
       env:
