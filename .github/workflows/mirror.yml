@@ -15,19 +15,17 @@ jobs:
     - name: Checkout Source Repository
       uses: actions/checkout@v2
 
-    - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
-        cat ~/.ssh/id_rsa
-
     - name: Set up Git
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Push to mirror
+    - name: Check Remote URL
       run: |
-        git push --mirror mirror
+        git remote -v
+
+    - name: Push to mirror
+      env:
+        DESTINATION_REPO_PAT: ${{ secrets.DESTINATION_REPO_PAT }}
+      run: |
+        git push --mirror https://${DESTINATION_REPO_PAT}
