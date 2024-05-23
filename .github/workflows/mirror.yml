@@ -1,0 +1,42 @@
+name: Mirror Repository
+
+on:
+  push:
+    branches:
+      - main  # Change this to the branch you want to mirror
+  schedule:
+    - cron: '0 * * * *'  # Run every hour
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Check if remote exists
+      id: check-remote
+      run: |
+        if git remote | grep mirror; then
+          echo "remote exists"
+        else
+          echo "no remote"
+        fi
+      continue-on-error: true
+
+    - name: Add mirror remote if not exists
+      if: steps.check-remote.outputs.mirror == 'no remote'
+      run: |
+         git remote add mirror https://${{ secrets.DESTINATION_REPO_PAT }}@github.com/EpitechPromo2027/B-YEP-400-LYN-4-1-zappy-maksen.mofredj.git
+
+    - name: Push to mirror
+      env:
+        DESTINATION_REPO_PAT: ${{ secrets.DESTINATION_REPO_PAT }}
+      run: |
+        git push --mirror mirror
