@@ -1,0 +1,76 @@
+name: Zappy workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches-ignore:
+      - 'ga-ignore-*'
+
+env:
+  EXECUTABLES: zappy_server, zappy_gui
+
+jobs:
+  check_program_compilation:
+    name: Checking that the program compiles correctly
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Compilation
+        timeout-minutes: 2
+        run: make
+      - name: Make clean
+        run: make clean
+      - name: Verify is files exists and is executable
+        run: |
+          for exe in $(echo $EXECUTABLES | tr ',' ' ');
+            do
+            if [ ! -x $exe ];
+              then exit 1;
+            fi;
+            done;
+            exit 0;
+          
+  check_coding_style:
+    needs: check_program_compilation
+    name: Checking the coding style
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Check the coding style
+        run: |
+          check.sh $(pwd) $(pwd);
+          if [ -s coding-style-reports.log ];
+            then while read line;
+              do
+              type=$(echo $line | awk -F ":" '{print $3}');
+              file=$(echo $line | awk -F ":" '{print $1}' | sed 's/^.\///');
+              nb_line=$(echo $line | awk -F ":" '{print $2}');
+              error=$(echo $line | awk -F ":" '{print $4}');
+              echo "::error ,title=$type coding style error,file=$file,line=$nb_line:: $error";
+              done < coding-style-reports.log;
+            exit 1;
+          fi;
+          exit 0;
+
+  run_tests:
+    name: Running tests
+    needs: check_program_compilation
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Execute tests
+        timeout-minutes: 2
+        run: make tests_run
