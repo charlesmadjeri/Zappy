@@ -1,5 +1,16 @@
+/*
+** EPITECH PROJECT, 2024
+** Zappy
+** File description:
+** server
+*/
+
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 /*typedef enum ressource_s {
     FOOD,
@@ -48,7 +59,7 @@ typedef struct player_s {
 /*client_struct*/
 typedef struct client_s {
     int fd;
-    sockaddr_in_t address;
+    sockaddr_in address;
     player_t *player;
 } client_t;
 
@@ -58,6 +69,12 @@ typedef struct linked_client_s {
     struct linked_client_s *next;
 } linked_lient_t;
 
+typedef struct server_s {
+
+} server_t;
+
 int main_loop () {}
 
 int manage_client_connection() {}
+
+void print_error(char *error);
