@@ -29,3 +29,6 @@ server:
  
 gui:
 	make -C GUI
+
+ai:
+	make -C AI
