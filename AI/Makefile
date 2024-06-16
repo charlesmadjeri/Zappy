@@ -4,3 +4,8 @@
 ## File description:
 ## -> Makefile
 ##
+
+all:
+	cp main.py zappy_AI
+	chmod 555 zappy_AI
+	mv zappy_AI ../
