@@ -12,10 +12,12 @@ all:
 clean:
 	make clean -C GUI
 	make clean -C server
+	make clean -C AI
 
 fclean:
 	make fclean -C GUI
 	make fclean -C server
+	make fclean -C AI
 	rm -f zappy_GUI
 	rm -f zappy_server
 	rm -f zappy_AI
@@ -23,6 +25,7 @@ fclean:
 re:
 	make re -C server
 	make re -C GUI
+	make re -C AI
 
 Server:
 	make -C server
