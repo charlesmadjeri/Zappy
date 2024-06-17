@@ -17,6 +17,7 @@ def innit_connection(client, machine_name, server_port, team_name):
 
     except socket.error as e:
         print(f"Connection error: {e}")
+        sys.exit(84)
     
     split_data = data.split('\n')
     client_number = int(split_data[0])
