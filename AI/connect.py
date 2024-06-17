@@ -23,9 +23,101 @@ def innit_connection(client, machine_name, server_port, team_name):
 
     if client_number < 0 :
         client.close()
-        print(f"Not enough space in team: {team_name}")
+        print(f"Not enough space in team: {team_name}\n")
         sys.exit(84)
 
     map_size = tuple(map(int, split_data[1].split()))
 
     return map_size
+
+def forward(client):
+    client.sendall("Forward\n".encode())
+    data = client.recv(5).decode()
+    if data == "dead":
+        dead(client)
+    return data
+
+def left(client):
+    client.sendall("Left\n".encode())
+    data = client.recv(5).decode()
+    if data == "dead":
+        dead(client)
+    return data
+
+def right(client):
+    client.sendall("Right\n".encode())
+    data = client.recv(5).decode()
+    if data == "dead":
+        dead(client)
+    return data
+
+def look(client):
+    client.sendall("Look\n".encode())
+    data = client.recv(1024).decode()
+    if data == "dead":
+        dead(client)
+    array = data.split(", ")
+    return array
+
+def inventory(client):
+    client.sendall("Inventory\n".encode())
+    data = client.recv(1024).decode()
+    if data == "dead":
+        dead(client)
+    array = data.split(", ")
+    return array
+
+def send(client, text):
+    message = "Broadcast " + text + "\n"
+    client.sendall(message.encode())
+    data = client.recv(5).decode()
+    if data == "dead":
+        dead(client)
+    return data
+
+def unused_slot(client):
+    client.sendall("Connect_nbr\n".encode())
+    data = client.recv(5).decode()
+    if data == "dead":
+        dead(client)
+    return int(data)
+
+def add_slot(client):
+    client.sendall("Fork\n".encode())
+    data = client.recv(5).decode()
+    if data == "dead":
+        dead(client)
+    return data
+
+def eject(client):
+    client.sendall("Eject\n".encode())
+    data = client.recv(5).decode()
+    if data == "dead":
+        dead(client)
+    return data
+
+def dead(client):
+    print("Drone is dead, disconnecting\n")
+    client.close()
+    sys.exit()
+
+def take(client):
+    client.sendall("Take object\n".encode())
+    data = client.recv(5).decode()
+    if data == "dead":
+        dead(client)
+    return data
+
+def drop(client):
+    client.sendall("Set object\n".encode())
+    data = client.recv(5).decode()
+    if data == "dead":
+        dead(client)
+    return data
+
+def elevate(client):
+    client.sendall("Incantation\n".encode())
+    data = client.recv(100).decode()
+    if data == "dead":
+        dead(client)
+    return data
