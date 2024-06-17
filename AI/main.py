@@ -21,7 +21,7 @@ def main():
             machine_name = sys.argv[i + 1]
     
     if server_port is None or team_name is None:
-        print("Missing arguments")
+        print("Missing arguments\n")
         sys.exit(84)
 
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
