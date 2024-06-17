@@ -21,7 +21,7 @@ def innit_connection(client, machine_name, server_port, team_name):
     split_data = data.split('\n')
     client_number = int(split_data[0])
 
-    if client_number < 1 :
+    if client_number < 0 :
         client.close()
         print(f"Not enough space in team: {team_name}")
         sys.exit(84)
