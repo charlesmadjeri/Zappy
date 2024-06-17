@@ -26,9 +26,6 @@ def main():
 
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     map_size = connect.innit_connection(client, machine_name, server_port, (team_name + '\n'))
-    i = 0
-    while i >= 0:
-        i += 1
     client.close()
     
 
