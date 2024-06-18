@@ -5,7 +5,7 @@ from AI import connect
 
 
 #(client, map_size) :
-def spiral_search():
+def spiral_search(client):
     # Starting position (assuming 0, 0 is the starting point)
     x, y = 0, 0
     # Initial direction (0=up, 1=right, 2=down, 3=left)
@@ -17,16 +17,16 @@ def spiral_search():
     turn_count = 0
 
     while True:
-        visible_tiles = connect.look()
+        visible_tiles = connect.look(client)
         
-        connect.forward()
+        connect.forward(client)
         x, y = move_forward(x, y, direction)
 
         # Increment steps
         steps += 1
 
         if steps > step_limit:
-            connect.right()
+            connect.right(client)
             direction = (direction + 1) % 4  # Update direction
 
             # Reset step count and update turn count
