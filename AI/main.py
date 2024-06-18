@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from AI import connect
+from AI import search
 import sys
 import socket
 
@@ -26,6 +27,7 @@ def main():
 
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     map_size = connect.innit_connection(client, machine_name, server_port, (team_name + '\n'))
+    search.spiral_search()
     client.close()
     
 
