@@ -34,7 +34,7 @@ def innit_connection(client, machine_name, server_port, team_name):
 def forward(client):
     client.sendall("Forward\n".encode())
     data = client.recv(1024).decode()
-    while data == "":
+    while data != "ok\n" and data != "ko\n" and data != "dead\n":
         data = client.recv(1024).decode()
     if data == "dead\n":
         dead(client)
@@ -43,7 +43,7 @@ def forward(client):
 def left(client):
     client.sendall("Left\n".encode())
     data = client.recv(1024).decode()
-    while data == "":
+    while data != "ok\n" and data != "ko\n" and data != "dead\n":
         data = client.recv(1024).decode()
     if data == "dead\n":
         dead(client)
@@ -52,7 +52,7 @@ def left(client):
 def right(client):
     client.sendall("Right\n".encode())
     data = client.recv(1024).decode()
-    while data == "":
+    while data != "ok\n" and data != "ko\n" and data != "dead\n":
         data = client.recv(1024).decode()
     if data == "dead\n":
         dead(client)
@@ -145,4 +145,6 @@ def elevate(client):
         data = client.recv(1024).decode()
     if data == "dead\n":
         dead(client)
+    if data != "ko\n":
+        data = client.recv(1024).decode()
     return data
