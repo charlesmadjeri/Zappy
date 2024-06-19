@@ -26,6 +26,7 @@ def spiral_search(player):
     while True:
         if step_limit >= 6:
             return_to_start(player)
+            step_limit = 0
         visible_tiles = connect.look(player.client)
         
         # Move forward
