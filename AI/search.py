@@ -19,20 +19,14 @@ def spiral_search(player):
     steps = 1
     step_limit = 1
     turn_count = 0
-
-    # List to track movements (for backtracking)
-    movements = []
-
+    items_of_interest = ["food", "linemate"]
     while True:
-        if step_limit >= 6:
-            return_to_start(player)
-            step_limit = 0
         visible_tiles = connect.look(player.client)
-        
+        loot_tiles(player, items_of_interest)
+
         # Move forward
         connect.forward(player.client)
         x, y = move_forward(x, y, direction)
-        movements.append(direction)  # Track the direction moved
 
         # Increment steps
         steps += 1
@@ -86,3 +80,75 @@ def return_to_start(player):
         # Move forward
         connect.forward(player.client)
         player.x, player.y = move_forward(player.x, player.y, player.direction)
+
+def loot_tiles(player, items_of_interest):
+    start_x, start_y = player.x, player.y
+    start_direction = player.direction
+    
+    visible_tiles = connect.look(player.client)
+
+    # Iterate through each tile's contents
+    for i, tile_contents in enumerate(visible_tiles):
+        # Split the tile_contents string by spaces to get individual elements
+        elements = tile_contents.split()
+
+        # Check if any item of interest is in the elements of the current tile
+        for item_of_interest in items_of_interest:
+            if item_of_interest in elements:
+                # Calculate the row and column based on vision cone pattern
+                row = i // (2 * player.level)
+                col = (player.level - 1) - (i % (2 * player.level))
+
+                # Calculate direction to face towards the tile
+                if col < 0:  # Tile is to the left
+                    target_direction = 3
+                elif col > 0:  # Tile is to the right
+                    target_direction = 1
+                elif row > 0:  # Tile is directly in front
+                    target_direction = 0
+                else:  # This case should ideally not occur if item is found
+                    continue
+                
+                # Turn to face the target direction
+                while player.direction != target_direction:
+                    connect.right(player.client)
+                    player.direction = (player.direction + 1) % 4
+                
+                # Move forward to the tile
+                connect.forward(player.client)
+                player.x, player.y = move_forward(player.x, player.y, player.direction)
+                print(connect.take(player.client, item_of_interest))
+                break  # Exit the loop once we've found and navigated to the tile
+
+    # After visiting all relevant tiles, return to the starting position (0, 0)
+    while player.x != start_x or player.y != start_y:
+        # Determine the optimal direction to move
+        if abs(player.x) >= abs(player.y):
+            if player.x > 0:
+                target_direction = 3  # Move left
+            else:
+                target_direction = 1  # Move right
+        else:
+            if player.y > 0:
+                target_direction = 2  # Move down
+            else:
+                target_direction = 0  # Move up
+
+        # Turn to face the target direction
+        while player.direction != target_direction:
+            connect.right(player.client)
+            player.direction = (player.direction + 1) % 4
+        
+        # Move forward
+        connect.forward(player.client)
+        player.x, player.y = move_forward(player.x, player.y, player.direction)
+    
+    # Finally, face the initial direction before the function was called
+    while player.direction != start_direction:
+        connect.right(player.client)
+        player.direction = (player.direction + 1) % 4
+
+    # Update player object's position and direction
+    player.x, player.y = start_x, start_y
+    player.direction = start_direction
+    print(connect.inventory(player.client))
