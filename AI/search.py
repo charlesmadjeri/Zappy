@@ -117,32 +117,40 @@ def loot_tiles(player, items_of_interest):
                 # Move forward to the tile
                 connect.forward(player.client)
                 player.x, player.y = move_forward(player.x, player.y, player.direction)
-                print(connect.take(player.client, item_of_interest))
+                connect.take(player.client, item_of_interest)
                 break  # Exit the loop once we've found and navigated to the tile
 
     # After visiting all relevant tiles, return to the starting position (0, 0)
-    while player.x != start_x or player.y != start_y:
-        # Determine the optimal direction to move
-        if abs(player.x) >= abs(player.y):
-            if player.x > 0:
-                target_direction = 3  # Move left
-            else:
-                target_direction = 1  # Move right
-        else:
-            if player.y > 0:
-                target_direction = 2  # Move down
-            else:
-                target_direction = 0  # Move up
+    opposite_direction = (start_direction + 2) % 4
+    while player.direction != opposite_direction:
+        connect.right(player.client)
+        player.direction = (player.direction + 1) % 4
 
-        # Turn to face the target direction
-        while player.direction != target_direction:
-            connect.right(player.client)
-            player.direction = (player.direction + 1) % 4
-        
-        # Move forward
+    # Move back until y or x = 0
+    while (player.direction in {0, 2} and player.y != start_y) or (player.direction in {1, 3} and player.x != start_x):
         connect.forward(player.client)
         player.x, player.y = move_forward(player.x, player.y, player.direction)
     
+    if player.x == start_x:
+        if player.y > start_y:
+            while player.direction != 2:
+                connect.right(player.client)
+                player.direction = (player.direction + 1) % 4
+        elif player.y < start_y:
+            while player.direction != 0:
+                connect.right(player.client)
+                player.direction = (player.direction + 1) % 4
+    
+    if player.y == start_y:
+        if player.x > start_x:
+            while player.direction != 3:
+                connect.right(player.client)
+                player.direction = (player.direction + 1) % 4
+        elif player.x < start_x:
+            while player.direction != 1:
+                connect.right(player.client)
+                player.direction = (player.direction + 1) % 4
+
     # Finally, face the initial direction before the function was called
     while player.direction != start_direction:
         connect.right(player.client)
@@ -151,4 +159,3 @@ def loot_tiles(player, items_of_interest):
     # Update player object's position and direction
     player.x, player.y = start_x, start_y
     player.direction = start_direction
-    print(connect.inventory(player.client))
