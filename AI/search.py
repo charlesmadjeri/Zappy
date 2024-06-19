@@ -65,7 +65,7 @@ def move_forward(x, y, direction):
 
 # Function to return to the starting position (0, 0) using Manhattan distance optimization
 def return_to_start(player):
-    while player.x != 0 or player.y != 0:
+    while player.x > 0 or player.y > 0:
         # Determine the optimal direction to move
         if abs(player.x) >= abs(player.y):
             if player.x > 0:
