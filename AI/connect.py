@@ -120,8 +120,8 @@ def dead(client):
     client.close()
     sys.exit()
 
-def take(client):
-    client.sendall("Take object\n".encode())
+def take(client, object):
+    client.sendall(f"Take {object}\n".encode())
     data = client.recv(1024).decode()
     while data == "":
         data = client.recv(1024).decode()
@@ -129,8 +129,8 @@ def take(client):
         dead(client)
     return data
 
-def drop(client):
-    client.sendall("Set object\n".encode())
+def drop(client, object):
+    client.sendall(f"Set {object}\n".encode())
     data = client.recv(1024).decode()
     while data == "":
         data = client.recv(1024).decode()
