@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from AI import connect
 from AI import search
+from AI.search import Player
 import sys
 import socket
 
@@ -25,10 +26,10 @@ def main():
         print("Missing arguments\n")
         sys.exit(84)
 
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    map_size = connect.innit_connection(client, machine_name, server_port, (team_name + '\n'))
-    search.spiral_search(client)
-    client.close()
+    player = Player()
+    map_size = connect.innit_connection(player.client, machine_name, server_port, (team_name + '\n'))
+    search.spiral_search(player)
+    player.client.close()
     
 
 if __name__ == "__main__":
