@@ -81,13 +81,64 @@ def return_to_start(player):
         connect.forward(player.client)
         player.x, player.y = move_forward(player.x, player.y, player.direction)
 
+def align_with_target(player, current, target, positive_direction, negative_direction):
+        if current < target:
+            target_direction = positive_direction
+        elif current > target:
+            target_direction = negative_direction
+        else:
+            return
+
+        while player.direction != target_direction:
+            connect.right(player.client)
+            player.direction = (player.direction + 1) % 4
+
+def move_to_coordinates(player, target_x, target_y):
+
+    # Move along the y-axis first
+    align_with_target(player, player.y, target_y, 0, 2)
+
+    while player.y != target_y:
+        connect.forward(player.client)
+        player.x, player.y = move_forward(player.x, player.y, player.direction)
+
+    # Move along the x-axis
+    align_with_target(player, player.x, target_x, 1, 3)
+
+    while player.x != target_x:
+        connect.forward(player.client)
+        player.x, player.y = move_forward(player.x, player.y, player.direction)
+
+def navigate_to_tile(index, player):
+        row = index // (2 * player.level)
+        col = (index % (2 * player.level)) - (player.level - 1)
+
+        if col < 0:  # Tile is to the left
+            target_direction = 3
+        elif col > 0:  # Tile is to the right
+            target_direction = 1
+        elif row > 0:  # Tile is directly in front
+            target_direction = 0
+        else:  # Tile is behind
+            target_direction = 2
+
+        while player.direction != target_direction:
+            connect.right(player.client)
+            player.direction = (player.direction + 1) % 4
+
+        for _ in range(abs(col) + abs(row)):
+            connect.forward(player.client)
+            player.x, player.y = move_forward(player.x, player.y, player.direction)
+
 def loot_tiles(player, items_of_interest):
     start_x, start_y = player.x, player.y
     start_direction = player.direction
     
     visible_tiles = connect.look(player.client)
 
-    # Iterate through each tile's contents
+    interesting_tiles = []
+
+ # Iterate through each tile's contents
     for i, tile_contents in enumerate(visible_tiles):
         # Split the tile_contents string by spaces to get individual elements
         elements = tile_contents.split()
@@ -95,67 +146,17 @@ def loot_tiles(player, items_of_interest):
         # Check if any item of interest is in the elements of the current tile
         for item_of_interest in items_of_interest:
             if item_of_interest in elements:
-                # Calculate the row and column based on vision cone pattern
-                row = i // (2 * player.level)
-                col = (player.level - 1) - (i % (2 * player.level))
+                interesting_tiles.append((i, elements))  # Store index and elements
+                break
 
-                # Calculate direction to face towards the tile
-                if col < 0:  # Tile is to the left
-                    target_direction = 3
-                elif col > 0:  # Tile is to the right
-                    target_direction = 1
-                elif row > 0:  # Tile is directly in front
-                    target_direction = 0
-                else:  # This case should ideally not occur if item is found
-                    continue
-                
-                # Turn to face the target direction
-                while player.direction != target_direction:
-                    connect.right(player.client)
-                    player.direction = (player.direction + 1) % 4
-                
-                # Move forward to the tile
-                connect.forward(player.client)
-                player.x, player.y = move_forward(player.x, player.y, player.direction)
+    for index, elements in interesting_tiles:
+        navigate_to_tile(index, player)
+        for item_of_interest in items_of_interest:
+            if item_of_interest in elements:
                 connect.take(player.client, item_of_interest)
-                break  # Exit the loop once we've found and navigated to the tile
+                elements.remove(item_of_interest)  # Remove the taken item from elements
 
-    # After visiting all relevant tiles, return to the starting position (0, 0)
-    opposite_direction = (start_direction + 2) % 4
-    while player.direction != opposite_direction:
-        connect.right(player.client)
-        player.direction = (player.direction + 1) % 4
-
-    # Move back until y or x = 0
-    while (player.direction in {0, 2} and player.y != start_y) or (player.direction in {1, 3} and player.x != start_x):
-        connect.forward(player.client)
-        player.x, player.y = move_forward(player.x, player.y, player.direction)
-    
-    if player.x == start_x:
-        if player.y > start_y:
-            while player.direction != 2:
-                connect.right(player.client)
-                player.direction = (player.direction + 1) % 4
-        elif player.y < start_y:
-            while player.direction != 0:
-                connect.right(player.client)
-                player.direction = (player.direction + 1) % 4
-    
-    if player.y == start_y:
-        if player.x > start_x:
-            while player.direction != 3:
-                connect.right(player.client)
-                player.direction = (player.direction + 1) % 4
-        elif player.x < start_x:
-            while player.direction != 1:
-                connect.right(player.client)
-                player.direction = (player.direction + 1) % 4
-
-    # Finally, face the initial direction before the function was called
+    move_to_coordinates(player, start_x, start_y)
     while player.direction != start_direction:
         connect.right(player.client)
         player.direction = (player.direction + 1) % 4
-
-    # Update player object's position and direction
-    player.x, player.y = start_x, start_y
-    player.direction = start_direction
