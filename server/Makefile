@@ -6,7 +6,7 @@
 ##
 
 SRC_NO_MAIN	=	$(shell find src/ -type f -name "*.c" -not -name "main.c")
-SRC 	=	$(SRC_NO_MAIN) src/main.c
+SRC 	=	$(SRC_NO_MAIN) src/main
 OBJ_NO_MAIN	=	$(patsubst src/%,obj/%,$(SRC_NO_MAIN:.c=.o))
 OBJ =   $(OBJ_NO_MAIN) obj/main.o
 
@@ -18,8 +18,7 @@ SANITIZE	=	-fsanitize=address,undefined \
 -fsanitize-recover=address,undefined
 ANALYZER	=
 
-CFLAGS  +=  -Wall -Wextra -pedantic -fsigned-char -I include\
-			-fconcepts-diagnostics-depth=4
+CFLAGS  +=  -Wall -Wextra -pedantic -fsigned-char -I include\8
 LDFLAGS	+= -lsfml-graphics -lsfml-window -lsfml-system -ldl
 LD_PRELOAD	=
 

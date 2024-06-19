@@ -36,6 +36,7 @@ int main_server(int ac, char **av)
     if (ac >= 2 && strcmp(av[1], "-h") == 0)
         help();
     signal(SIGINT, sig_int_catcher);
+    init_serv(ac, av, server);
     start_server(&server);
     return (0);
 }
