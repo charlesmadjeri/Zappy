@@ -6,7 +6,7 @@ import sys
 import socket
 
 def main():
-    if len(sys.argv) != 5 and len != 7:
+    if len(sys.argv) != 5 and len(sys.argv) != 7:
         print("Incorrect number of argument")
         sys.exit(84)
 
