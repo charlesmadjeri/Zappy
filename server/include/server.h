@@ -14,6 +14,9 @@
     #include <stdlib.h>
     #include <string.h>
     #include <unistd.h>
+    #include <stdbool.h>
+    
+    bool exit_serv = false;
 
     typedef struct sockaddr_in sockaddr_in_t;
 
@@ -82,6 +85,12 @@
         client_t *sever_client;
         linked_lient_t *clients;
     } server_t;
+
+    void start_server(server_t *server);
+    /**
+    * @brief  called to start main loop
+    * 
+    **/
 
     void main_loop () {}
 

@@ -7,10 +7,11 @@
 
 #include "server.h"
 
-void start_server(server_t server)
+void start_server(server_t *server)
 {
-    int fd = socket(AF_INET, SOCK_STREAM, 0);
-    
+    server->sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    int opt = 1;
+
     if (fd < 0)
         print_error("Can't create socket");
 }
