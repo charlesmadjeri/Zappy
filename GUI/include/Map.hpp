@@ -15,10 +15,13 @@
 namespace GUIClient {
     class Map : public sf::Drawable {
         public:
+            Map() = default;
             Map(uint width, uint height);
             ~Map() = default;
 
             void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+            void create(sf::Vector2i size);
+            void create(uint width, uint height);
         protected:
         private:
             uint _width;

@@ -17,7 +17,7 @@ void print_help(void)
     std::cout << "        -p <port> is the port number nbParams[1] isMandatory : 0" << std::endl;
 }
 
-int parse_params(int ac, char **av, GUIClient::GUI &gui)
+int parse_params(int ac, char **av, GUIClient::Communication &comm)
 {
     const option longopts[] = {
         {"help", no_argument, nullptr, 0},
@@ -31,8 +31,8 @@ int parse_params(int ac, char **av, GUIClient::GUI &gui)
             break;
         switch (opt) {
             case 0: print_help(); return 1;
-            case 'h': gui.setHost(optarg); break;
-            case 'p': gui.setPortFromString(optarg); break;
+            case 'h': comm.setHost(optarg); break;
+            case 'p': comm.setPortFromString(optarg); break;
             default: continue;
         }
     }
@@ -42,11 +42,12 @@ int parse_params(int ac, char **av, GUIClient::GUI &gui)
 int main(int ac, char **av)
 {
     GUIClient::GUI gui = GUIClient::GUI();
+    GUIClient::Communication &comm = gui.getCommunication();
 
-    if (parse_params(ac, av, gui) == 1)
+    if (parse_params(ac, av, comm) == 1)
         return 0;
-    sf::Socket::Status status = gui.connectToServer();
-    if (status == sf::Socket::Status::Error)
+    int status = comm.connectToServer();
+    if (status == -1)
         return 84;
     gui.run();
     std::cout << "Closing GUI." << std::endl;

@@ -11,9 +11,19 @@
 
 GUIClient::Map::Map(uint width, uint height)
 {
+    this->create(width, height);
+}
+
+void GUIClient::Map::create(const sf::Vector2i size)
+{
+    this->create(size.x, size.y);
+}
+
+void GUIClient::Map::create(uint width, uint height)
+{
     this->_width = width;
     this->_height = height;
-    this->_tiles = std::vector<Tile>();
+    this->_tiles.clear();
 
     float tileHeight = WIN_H / height;
     float tileWidth = WIN_H / width;
