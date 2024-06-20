@@ -21,7 +21,7 @@ CXX_VERSION	=	-std=c++20
 
 CXXFLAGS	+=	-Wall -Wextra -pedantic -fsigned-char $(CXX_VERSION) -Iinclude\
 			-fconcepts-diagnostics-depth=4
-LDFLAGS	+=	-lsfml-graphics -lsfml-window -lsfml-system -ldl
+LDFLAGS	+=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -ldl
 LD_PRELOAD	=
 
 NAME	=	zappy_gui

@@ -17,7 +17,7 @@ void print_help(void)
     std::cout << "        -p <port> is the port number nbParams[1] isMandatory : 0" << std::endl;
 }
 
-int parse_params(int ac, char **av, GUI::GUI &gui)
+int parse_params(int ac, char **av, GUIClient::GUI &gui)
 {
     const option longopts[] = {
         {"help", no_argument, nullptr, 0},
@@ -41,14 +41,14 @@ int parse_params(int ac, char **av, GUI::GUI &gui)
 
 int main(int ac, char **av)
 {
-    GUI::GUI gui = GUI::GUI();
+    GUIClient::GUI gui = GUIClient::GUI();
 
     if (parse_params(ac, av, gui) == 1)
         return 0;
-    int serverSock = gui.connectToServer();
-    if (serverSock == -1)
+    sf::Socket::Status status = gui.connectToServer();
+    if (status == sf::Socket::Status::Error)
         return 84;
-    gui.run(serverSock);
+    gui.run();
     std::cout << "Closing GUI." << std::endl;
     return 0;
 }

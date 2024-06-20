@@ -7,10 +7,10 @@
 
 #include "Inventory.hpp"
 
-GUI::Inventory::Inventory()
+GUIClient::Inventory::Inventory()
 {
 }
 
-GUI::Inventory::~Inventory()
+GUIClient::Inventory::~Inventory()
 {
 }

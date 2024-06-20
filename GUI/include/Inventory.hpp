@@ -7,7 +7,7 @@
 
 #pragma once
 
-namespace GUI {
+namespace GUIClient {
     class Inventory {
         public:
             Inventory();
