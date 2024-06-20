@@ -26,7 +26,7 @@ void sig_int_catcher(int sig __attribute__((__unused)))
 {
     if (sig == SIGINT) {
         printf("\nServer is closing by signal\n");
-        exit_serv = true;
+        exit(0);
     }
 }
 
@@ -36,7 +36,7 @@ int main_server(int ac, char **av)
     if (ac >= 2 && strcmp(av[1], "-h") == 0)
         help();
     signal(SIGINT, sig_int_catcher);
-    init_serv(ac, av, server);
+    init_serv(ac, av, &server);
     start_server(&server);
     return (0);
 }

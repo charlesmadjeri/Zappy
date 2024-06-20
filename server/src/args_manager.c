@@ -9,7 +9,7 @@
 
 int get_port(int ac, char **av)
 {
-    int port = 4444;
+    int port = 1024;
     int i = 0;
 
     for (; i != ac; i++)
@@ -17,15 +17,17 @@ int get_port(int ac, char **av)
             break;
     if (i == ac)
         return port;
-    else
+    else if(i >= ac || atoi(av[i+1]) <= 0)
         print_error("Incorrect port given");
-    return (0);
+    port = atoi(av[i+1]);
+    return (port);
 }
 
-void init_net(int ac, char **av, server_t *serv)
+void init_serv(int ac, char **av, server_t *serv)
 {
     serv->port = get_port(ac, av);
     serv->clients = NULL;
     serv->socket_size = sizeof(struct sockaddr_in);
     serv->sever_client = NULL;
+    serv->status = false;
 }

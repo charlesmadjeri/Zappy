@@ -15,10 +15,9 @@
     #include <string.h>
     #include <unistd.h>
     #include <stdbool.h>
-    
-    bool exit_serv = false;
 
     typedef struct sockaddr_in sockaddr_in_t;
+    typedef struct sockaddr sockaddr_t;
 
     /*typedef enum ressource_s {
         FOOD,
@@ -80,21 +79,24 @@
     typedef struct server_s {
         int port;
         int sockfd;
+        bool status;
         sockaddr_in_t addr_serv;
         socklen_t socket_size;
         client_t *sever_client;
         linked_lient_t *clients;
     } server_t;
 
-    void start_server(server_t *server);
+    int main_server(int ac, char **av);
+
     /**
-    * @brief  called to start main loop
-    * 
-    **/
+     * @brief Called to start main loop 
+     * 
+     * @param server structure containing server's information
+     */
+    void start_server(server_t *server);
 
-    void main_loop () {}
-
-    void manage_client_connection() {}
+    void init_serv(int ac, char **av, server_t *);
+   sockaddr_in_t generate_addr(const int port);
 
     void print_error(char *error);
 
