@@ -7,6 +7,7 @@
 *.obj
 *.elf
 *.hi
+*.pyc
 
 # Linker output
 *.ilk
@@ -39,6 +40,7 @@
 zappy_server
 zappy_gui
 zappy_ai
+zappy_AI
 
 # Debug files
 *.dSYM/
