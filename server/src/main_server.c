@@ -30,6 +30,29 @@ void sig_int_catcher(int sig __attribute__((__unused)))
     }
 }
 
+void main_loop(server_t *server)
+{
+    fd_set readfd;
+    fd_set writefd;
+    sockaddr_in_t addrCLient;
+    int socketClient = -1;
+    int addrClient;
+    ssize_t readval = 0;
+    char buffer[8056];
+
+    while (server->status == false) {
+        if (socketClient == -1) {
+            printf("waiting for connection...\n");
+            socketClient = accept(server->sockfd, (struct sockaddr *)&addrCLient, &server->socket_size);
+            printf("connection accepted\n");
+            dprintf(socketClient, "WELCOME\n");
+            printf("Server ---> WELCOME\n");
+            read(socketClient, buffer, 8057);
+            printf("Client ---> %s\n", buffer);
+        }
+    }
+}
+
 int main_server(int ac, char **av)
 {
     server_t server = {.addr_serv = {0}};
@@ -38,5 +61,6 @@ int main_server(int ac, char **av)
     signal(SIGINT, sig_int_catcher);
     init_serv(ac, av, &server);
     start_server(&server);
+    main_loop(&server);
     return (0);
 }

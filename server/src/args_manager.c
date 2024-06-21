@@ -26,6 +26,7 @@ int get_port(int ac, char **av)
 void init_serv(int ac, char **av, server_t *serv)
 {
     serv->port = get_port(ac, av);
+    printf("port : %d\n", serv->port);
     serv->clients = NULL;
     serv->socket_size = sizeof(struct sockaddr_in);
     serv->sever_client = NULL;
