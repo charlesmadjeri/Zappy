@@ -26,7 +26,7 @@ all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	$(CC) -o $(NAME) $(OBJ) $(CFLAGS)
-	cp $(NAME) ../$(NAME)
+	mv $(NAME) ../$(NAME)
 
 clean:
 	$(RM) $(OBJ)
