@@ -48,10 +48,14 @@ void main_loop(server_t *server)
             dprintf(socketClient, "WELCOME\n");
             printf("Server ---> WELCOME\n");
             read(socketClient, buffer, 8057);
-            if (buffer == "GRAPHICS")
-                printf("Client ---> %s\nGUI online\n", buffer);
-            else
-                printf("Client --->%s\nPlayer online", buffer);
+            printf("%s", buffer);
+            if (strcmp(buffer, "GRAPHIC\n") == 0) {
+                printf("Client ---> GUI online\n");
+                server->status = true;
+            } else {
+                printf("Client ---> Player online\n");
+                server->status = true;
+            }
         }
     }
 }
