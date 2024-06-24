@@ -17,9 +17,6 @@
     #include <unistd.h>
     #include <stdbool.h>
 
-    typedef struct sockaddr_in sockaddr_in_t;
-    typedef struct sockaddr sockaddr_t;
-
     /*typedef enum ressource_s {
         FOOD,
         LINEMATE,
@@ -67,7 +64,7 @@
     /*client_struct*/
     typedef struct client_s {
         int fd;
-        sockaddr_in_t address;
+        struct sockaddr_in address;
         player_t *player;
     } client_t;
 
@@ -81,25 +78,22 @@
         int port;
         int sockfd;
         bool status;
-        sockaddr_in_t addr_serv;
+        struct sockaddr_in addr_serv;
         socklen_t socket_size;
-        client_t *sever_client;
+        client_t *client;
         linked_lient_t *clients;
     } server_t;
 
     int main_server(int ac, char **av);
 
-    /**
-     * @brief Called to start main loop 
-     * 
-     * @param server structure containing server's information
-     */
     void start_server(server_t *server);
 
-    void init_serv(int ac, char **av, server_t *);
-   sockaddr_in_t generate_addr(const int port);
+    void init_server(int ac, char **av, server_t *);
+    
+    struct sockaddr_in generate_addr(const int port);
 
     void print_error(char *error);
 
-    void init_net(int ac, char **av, server_t *serv);
+    void manage_connection(server_t *server, fd_set *readfd);
+
 #endif /* !SERVER_H_ */

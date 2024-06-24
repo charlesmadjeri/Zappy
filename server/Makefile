@@ -10,7 +10,8 @@ SRC = 			src/main.c 			\
 				src/server.c		\
 				src/socket.c		\
 				src/error_manager.c	\
-				src/args_manager.c
+				src/args_manager.c	\
+				src/connection.c	\
 
 OBJ		=	$(SRC:.c=.o)
 

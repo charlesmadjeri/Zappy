@@ -10,6 +10,6 @@
 
 void print_error(char *error)
 {
-    printf("%s\n", error);
+    printf("Error : %s\n", error);
     exit(84);
 }

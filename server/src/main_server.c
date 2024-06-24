@@ -34,40 +34,26 @@ void main_loop(server_t *server)
 {
     fd_set readfd;
     fd_set writefd;
-    sockaddr_in_t addrCLient;
-    int socketClient = -1;
-    int addrClient;
-    ssize_t readval = 0;
-    char buffer[8056];
 
     while (server->status == false) {
-        if (socketClient == -1) {
-            printf("waiting for connection...\n");
-            socketClient = accept(server->sockfd, (struct sockaddr *)&addrCLient, &server->socket_size);
-            printf("connection accepted\n");
-            dprintf(socketClient, "WELCOME\n");
-            printf("Server ---> WELCOME\n");
-            read(socketClient, buffer, 8057);
-            printf("%s", buffer);
-            if (strcmp(buffer, "GRAPHIC\n") == 0) {
-                printf("Client ---> GUI online\n");
-                server->status = true;
-            } else {
-                printf("Client ---> Player online\n");
-                server->status = true;
-            }
-        }
+        FD_ZERO(&readfd);
+        FD_ZERO(&writefd);
+        FD_SET(server->sockfd, &readfd);
+        select(FD_SETSIZE, &readfd, &writefd, NULL, NULL);
+        manage_connection(server, &readfd);
     }
 }
 
 int main_server(int ac, char **av)
 {
-    server_t server = {.addr_serv = {0}};
+    server_t server;
     if (ac >= 2 && strcmp(av[1], "-h") == 0)
         help();
+    printf("======ZAPPY SERVER======\n");
     signal(SIGINT, sig_int_catcher);
-    init_serv(ac, av, &server);
+    init_server(ac, av, &server);
     start_server(&server);
+    printf("========================\n");
     main_loop(&server);
     return (0);
 }
