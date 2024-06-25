@@ -29,41 +29,41 @@
 
 /*----------TYPEDEFS----------*/
 
-    typedef struct game_s {
-        int id_count;
-        int freq;
-        size_t time;
-        char **teams;
-        int nb_teams;
-        map_t map;
-        inventory_t loot;
-    } game_t;
+typedef struct game_s {
+    int id_count;
+    int freq;
+    size_t time;
+    char **teams;
+    int nb_teams;
+    map_t map;
+    inventory_t loot;
+} game_t;
 
-    typedef struct server_s {
-        int port;
-        int sockfd;
-        bool status;
-        struct sockaddr_in addr_serv;
-        fd_set readfds;
-        fd_set writefds;
-        socklen_t socket_size;
-        linked_lient_t *clients;
-    } server_t;
+typedef struct server_s {
+    int port;
+    int sockfd;
+    bool status;
+    struct sockaddr_in addr_serv;
+    fd_set readfds;
+    fd_set writefds;
+    socklen_t socket_size;
+    linked_lient_t *clients;
+} server_t;
 
-    void help();
+void help(void);
 
-    int main_server(int ac, char **av);
+int main_server(int ac, char **av);
 
-    void start_server(server_t *server);
+void start_server(server_t *server);
 
-    void init_server(int ac, char **av, server_t *);
+void init_server(int ac, char **av, server_t *);
 
-    void init_game(int ac, char **av, game_t *game);
-    
-    struct sockaddr_in generate_addr(const int port);
+void init_game(int ac, char **av, game_t *game);
 
-    void print_error(char *error);
+struct sockaddr_in generate_addr(const int port);
 
-    void manage_connection(server_t *server, fd_set *readfd);
+void print_error(char *error);
+
+void manage_connection(server_t *server, fd_set *readfd);
 
 #endif /* !SERVER_H_ */
