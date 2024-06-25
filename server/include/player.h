@@ -21,19 +21,13 @@
     /*player_inventory*/
     typedef struct inventory_s {
         int food;
-        int linerstate;
+        int linemate;
         int deraumere;
         int sibur;
         int mendiane;
         int phiras;
         int thystame;
     } inventory_t;
-
-    /*player_coordonates*/
-    typedef struct coords_s {
-        int x;
-        int y;
-    } coords_t;
 
     /*player_state*/
     typedef enum state_s {

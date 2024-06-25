@@ -12,6 +12,7 @@ SRC = 			src/main.c 			\
 				src/error_manager.c	\
 				src/args_manager.c	\
 				src/connection.c	\
+				src/init.c			\
 
 OBJ		=	$(SRC:.c=.o)
 

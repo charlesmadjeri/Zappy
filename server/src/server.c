@@ -8,6 +8,15 @@
 #include "server.h"
 #include <sys/socket.h>
 
+void init_server(int ac, char **av, server_t *server)
+{
+    server->port = get_port(ac, av);
+    printf("port : %d\n", server->port);
+    server->clients = NULL;
+    server->socket_size = sizeof(struct sockaddr_in);
+    server->status = false;
+}
+
 void start_server(server_t *server)
 {
     server->sockfd = socket(AF_INET, SOCK_STREAM, 0);
