@@ -42,8 +42,7 @@ void init_game(int ac, char **av, game_t *game)
     init_loot(&game->loot);
     game->map.x = get_width(ac, av);
     game->map.y = get_height(ac, av);
-    game->nb_teams = get_clientsNb(ac, av);
+    game->nb_teams = get_clientnb(ac, av);
     game->time = clock();
     make_map(game);
-
 }

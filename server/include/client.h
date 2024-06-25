@@ -10,7 +10,7 @@
 
     #include "server.h"
     #include "player.h"
-    
+
     /*client_struct*/
     typedef struct client_s {
         int fd;
