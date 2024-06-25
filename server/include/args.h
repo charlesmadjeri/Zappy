@@ -16,6 +16,6 @@
 
     int get_height(int ac, char **av);
 
-    int get_clientsNb(int ac, char **av);
+    int get_clientnb(int ac, char **av);
 
 #endif /* !ARGS_H_ */
