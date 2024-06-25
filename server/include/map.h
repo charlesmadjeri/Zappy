@@ -10,11 +10,11 @@
 
     #include "inventory.h"
 
-typedef struct map_s {
-    int x;
-    int y;
-    inventory_t **tile;
-} map_t;
+    typedef struct map_s {
+        int x;
+        int y;
+        inventory_t **tile;
+    } map_t;
 
 
 #endif /* !MAP_H_ */

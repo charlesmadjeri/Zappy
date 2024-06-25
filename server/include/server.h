@@ -50,20 +50,66 @@ typedef struct server_s {
     linked_lient_t *clients;
 } server_t;
 
+/**
+**@brief
+**
+**/
 void help(void);
 
+/**
+**@brief
+**
+**@param ac
+**@param av
+**@return int
+**/
 int main_server(int ac, char **av);
 
+/**
+**@brief
+**
+**@param server
+**/
 void start_server(server_t *server);
 
+/**
+**@brief
+**
+**@param ac
+**@param av
+**/
 void init_server(int ac, char **av, server_t *);
 
+/**
+**@brief
+**
+**@param ac
+**@param av
+**@param game
+**/
 void init_game(int ac, char **av, game_t *game);
 
+/**
+**@brief
+**
+**@param port
+**@return struct sockaddr_in
+**/
 struct sockaddr_in generate_addr(const int port);
 
+/**
+**@brief
+**
+**@param error
+**/
 void print_error(char *error);
 
+/**
+**@brief
+**
+**@param server
+**@param readfd
+**/
 void manage_connection(server_t *server, fd_set *readfd);
 
 #endif /* !SERVER_H_ */
