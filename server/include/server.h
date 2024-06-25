@@ -20,11 +20,15 @@
     #include "client.h"
     #include "game.h"
 
+    #define MAX_CLIENTS 100
+
     typedef struct server_s {
         int port;
         int sockfd;
         bool status;
         struct sockaddr_in addr_serv;
+        fdset readfds;
+        fdset writefds;
         socklen_t socket_size;
         client_t *client;
         linked_lient_t *clients;

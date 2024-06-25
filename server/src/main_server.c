@@ -5,7 +5,9 @@
 ** main_server
 */
 
+#include "game.h"
 #include "server.h"
+#include 
 #include <signal.h>
 
 void help()
@@ -47,11 +49,12 @@ void main_loop(server_t *server)
 int main_server(int ac, char **av)
 {
     server_t server;
-    if (ac >= 2 && strcmp(av[1], "-h") == 0)
+    if (ac >= 2 && strcmp(av[1], "--help") == 0)
         help();
     printf("======ZAPPY SERVER======\n");
     signal(SIGINT, sig_int_catcher);
     init_server(ac, av, &server);
+    init_game();
     start_server(&server);
     printf("========================\n");
     main_loop(&server);

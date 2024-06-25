@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** Zappy
 ** File description:
-** game
+** player
 */
 
 #ifndef GAME_H_

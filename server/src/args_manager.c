@@ -12,15 +12,17 @@ int get_port(int ac, char **av)
     int port = 1024;
     int i = 0;
 
-    for (; i != ac; i++)
-        if (strcmp(av[i], "-p") == 0)
+    for (; i != ac; i++) {
+        if (strcmp(av[i], "-p") == 0) {
             break;
+        }
+    }
     if (i == ac) {
-        return port;  
+        print_error("No port parameter");  
     } else if (i >= ac || atoi(av[i+1]) <= 0) {
         print_error("Incorrect port given");
-    port = atoi(av[i+1]);
     }
+    port = atoi(av[i+1]);
     return (port);
 }
 
