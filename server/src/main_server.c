@@ -48,7 +48,7 @@ int main_server(int ac, char **av)
 {
     game_t game;
     server_t server;
-    
+
     if (ac >= 2 && strcmp(av[1], "--help") == 0)
         help();
     printf("======ZAPPY SERVER======\n");

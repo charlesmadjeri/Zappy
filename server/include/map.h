@@ -8,7 +8,7 @@
 #ifndef MAP_H_
     #define MAP_H_
 
-    #include "server.h"
+    #include "inventory.h"
 
     typedef struct map_s {
         int x;

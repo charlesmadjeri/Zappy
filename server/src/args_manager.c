@@ -26,7 +26,7 @@ int get_port(int ac, char **av)
     return (port);
 }
 
-void get_freq(int ac, char **av)
+int get_freq(int ac, char **av)
 {
     int freq = 100;
     int i = 0;

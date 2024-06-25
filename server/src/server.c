@@ -5,6 +5,7 @@
 ** server
 */
 
+#include "args.h"
 #include "server.h"
 #include <sys/socket.h>
 
