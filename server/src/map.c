@@ -6,12 +6,14 @@
 */
 
 #include "map.h"
+#include "resources.h"
 #include <stdlib.h>
 #include <time.h>
 
-inventory_t init_tile()
+static inventory_t init_tile(void)
 {
     inventory_t tile;
+
     tile.deraumere = 0;
     tile.food = 0;
     tile.linemate = 0;
@@ -22,7 +24,7 @@ inventory_t init_tile()
     return tile;
 }
 
-inventory_t **init_map(int x, int y)
+static inventory_t **init_map(int x, int y)
 {
     inventory_t **map = malloc(sizeof(inventory_t *) * (x + 1));
 
@@ -37,14 +39,18 @@ inventory_t **init_map(int x, int y)
     return map;
 }
 
-void shuffle(int* resources, int size)
+static void shuffle(int *resources_list, int size)
 {
+    int j = 0;
+    int t = 0;
+
+    srand(time(NULL));
     if (size > 1) {
         for (int i = 0; i < size - 1; i++) {
-            int j = i + rand() / (RAND_MAX / (size - i) + 1);
-            int t = resources[i];
-            resources[i] = resources[j];
-            resources[j] = t;
+            j = i + rand() / (RAND_MAX / (size - i) + 1);
+            t = resources_list[i];
+            resources_list[i] = resources_list[j];
+            resources_list[j] = t;
         }
     }
 }
@@ -154,7 +160,6 @@ map_t fill_map(map_t *map)
     shuffle(resources_list, resource.total_resources);
     map = fill_tiles(map, resources_list, resource.total_resources);
     if (resource.total_resources > nb_tiles) {
-        printf("i:%i\t%i\n", nb_tiles, resource.total_resources);
         fill_excess(map, &resources_list[nb_tiles], nb_tiles,
             resource.total_resources - nb_tiles);
     }

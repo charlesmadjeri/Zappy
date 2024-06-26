@@ -29,8 +29,6 @@ void init_game(int ac, char **av, game_t *game)
 {
     game->freq = get_freq(ac, av);
     game->id_count = 0;
-    init_loot(&game->loot);
-<<<<<<< HEAD
     game->map = create_world(get_width(ac, av), get_height(ac, av));
     game->nb_cli = get_clientnb(ac, av);
     game->time = clock();
@@ -39,11 +37,4 @@ void init_game(int ac, char **av, game_t *game)
     for (int i = 0; game->teams[i] != NULL; i++)
         printf(" %s", game->teams[i]);
     printf("\n");
-=======
-    game->map.x = get_width(ac, av);
-    game->map.y = get_height(ac, av);
-    game->nb_teams = get_clientnb(ac, av);
-    game->time = clock();
-    make_map(game);
->>>>>>> origin/mmo/base_world_creation
 }
