@@ -10,6 +10,7 @@
 
 /*----------INCLUDES----------*/
     #include "inventory.h"
+    #include <stdio.h>
 
 /*----------MACROS----------*/
     #define F_DENSITY 0.5
@@ -26,6 +27,9 @@
         int y;
         inventory_t **tile;
     } map_t;
+
+map_t create_world(int x, int y);
+map_t fill_map(map_t *map);
 
 
 #endif /* !MAP_H_ */

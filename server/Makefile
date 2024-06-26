@@ -13,6 +13,8 @@ SRC = 			src/main.c 				\
 				src/connection.c		\
 				src/init.c				\
 				src/free.c				\
+				src/resources.c	\
+				src/map.c	\
 				src/args/args_manager.c	\
 				src/args/get_teams.c	\
 
@@ -20,7 +22,7 @@ OBJ		=	$(SRC:.c=.o)
 
 NAME	=	zappy_server
 
-CFLAGS	= -I./include
+CFLAGS	= -I./include -g3
 
 CC	=	gcc
 
