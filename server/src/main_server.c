@@ -53,10 +53,11 @@ int main_server(int ac, char **av)
         help();
     printf("======ZAPPY SERVER======\n");
     signal(SIGINT, sig_int_catcher);
-    init_server(ac, av, &server);
     init_game(ac, av, &game);
+    init_server(ac, av, &server);
     start_server(&server);
     printf("========================\n");
     main_loop(&server);
+    free_memory(&server, &game);
     return (0);
 }

@@ -5,14 +5,16 @@
 ## Makefile
 ##
 
-SRC = 			src/main.c 			\
-				src/main_server.c	\
-				src/server.c		\
-				src/socket.c		\
-				src/error_manager.c	\
-				src/args_manager.c	\
-				src/connection.c	\
-				src/init.c			\
+SRC = 			src/main.c 				\
+				src/main_server.c		\
+				src/server.c			\
+				src/socket.c			\
+				src/error_manager.c		\
+				src/connection.c		\
+				src/init.c				\
+				src/free.c				\
+				src/args/args_manager.c	\
+				src/args/get_teams.c	\
 
 OBJ		=	$(SRC:.c=.o)
 

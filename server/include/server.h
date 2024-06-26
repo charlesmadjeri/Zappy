@@ -35,6 +35,7 @@ typedef struct game_s {
     size_t time;
     char **teams;
     int nb_teams;
+    int nb_cli;
     map_t map;
     inventory_t loot;
 } game_t;
@@ -111,5 +112,11 @@ void print_error(char *error);
 **@param readfd
 **/
 void manage_connection(server_t *server, fd_set *readfd);
+
+/**
+** @brief
+**
+**/
+void free_memory(server_t *server, game_t *game);
 
 #endif /* !SERVER_H_ */

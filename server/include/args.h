@@ -8,6 +8,8 @@
 #ifndef ARGS_H_
     #define ARGS_H_
 
+    #include "server.h"
+
 /**
  * @brief Get the port object
  *
@@ -52,4 +54,11 @@ int get_height(int ac, char **av);
 ** @return int
 */
 int get_clientnb(int ac, char **av);
+
+/**
+** @brief
+**
+**/
+void get_teams(int ac, char **av, int i, game_t *game);
+
 #endif /* !ARGS_H_ */

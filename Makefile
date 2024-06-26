@@ -26,6 +26,6 @@ re:
 
 server:
 	make -C server
- 
+
 gui:
 	make -C GUI
