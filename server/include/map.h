@@ -21,11 +21,22 @@
     #define T_DENSITY 0.05
 
 /*----------TYPEDEFS----------*/
-    typedef struct map_s {
-        int x;
-        int y;
-        inventory_t **tile;
-    } map_t;
+typedef struct map_s {
+    int x;
+    int y;
+    inventory_t **tile;
+} map_t;
+
+typedef struct resource_s {
+    int food;
+    int linemate;
+    int deraumere;
+    int sibur;
+    int mendiane;
+    int phiras;
+    int thystame;
+    int total_resources;
+} resource_t;
 
 
 #endif /* !MAP_H_ */
