@@ -23,9 +23,3 @@ std::vector<std::string> splitString(std::string str, const char delim, bool kee
 
     return result;
 }
-
-template <typename T>
-std::vector<T> &operator+(std::vector<T> &vec, int offset)
-{
-    return vec.erase(vec.begin(), vec.begin() + offset);
-}

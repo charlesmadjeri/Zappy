@@ -14,6 +14,13 @@ GUIClient::Incantation::Incantation(int x, int y, int level) : IncantationCompon
     this->_triangle.setPosition(x, y);
 }
 
+GUIClient::Incantation::Incantation(IncantationComponent &component) : IncantationComponent(component)
+{
+    this->_triangle.setPointCount(3);
+    this->_triangle.setFillColor(sf::Color::Magenta);
+    this->_triangle.setPosition(component.getX(), component.getY());
+}
+
 void GUIClient::Incantation::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     target.draw(this->_triangle, states);

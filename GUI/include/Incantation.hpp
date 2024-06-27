@@ -28,6 +28,7 @@ namespace GUIClient {
     class Incantation : public sf::Drawable, public IncantationComponent {
         public:
             Incantation(int x, int y, int level);
+            Incantation(IncantationComponent &component);
 
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
         protected:
