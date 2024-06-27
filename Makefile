@@ -27,9 +27,9 @@ re:
 	make re -C GUI
 	make re -C AI
 
-server:
+Server:
 	make -C server
- 
+
 gui:
 	make -C GUI
 
