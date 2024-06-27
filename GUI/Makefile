@@ -19,7 +19,7 @@ SANITIZE	=	-fsanitize=address,undefined \
 ANALYZER	=
 CXX_VERSION	=	-std=c++20
 
-INCLUDES	=	-Iinclude -Iinclude/Communication
+INCLUDES	=	-Iinclude
 
 CXXFLAGS	+=	-Wall -Wextra -pedantic -fsigned-char $(CXX_VERSION)\
 			$(INCLUDES) -fconcepts-diagnostics-depth=4
