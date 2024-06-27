@@ -5,7 +5,6 @@
 ** socket
 */
 
-#ifndef SOCKET_H_
-    #define SOCKET_H_
+#pragma once
 
-#endif /* !SOCKET_H_ */
+#include "zappy.h"

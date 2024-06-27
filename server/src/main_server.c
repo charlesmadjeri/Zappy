@@ -5,7 +5,7 @@
 ** main_server
 */
 
-#include "player.h"
+#include "game.h"
 #include "server.h"
 
 void help(void)

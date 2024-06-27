@@ -11,9 +11,8 @@ void init_client(int socketClient, sockaddr_in_t addrClient, client_t *client)
 {
     client->fd = socketClient;
     client->address = addrClient;
-    client->message = NULL;
-    client->send = NULL;
     client->player = NULL;
+    client->commands = NULL;
 }
 
 void manage_connection(server_t *server, fd_set *readfd)
