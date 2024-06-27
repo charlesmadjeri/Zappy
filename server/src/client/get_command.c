@@ -7,6 +7,23 @@
 
 #include "server.h"
 
+void create_command(char *buffer)
+{
+    char *token;
+    char** command = malloc(sizeof(char *));
+
+    token = strtok(buffer, " ");
+    for (int i = 0; token != NULL; i++) {
+        command[i] = token;
+        command[i + 1] = NULL;
+        token = strtok(NULL, " ");
+    }
+    for (int i = 0; command[i] != NULL; i++)
+        printf(" %s ->", command[i]);
+    printf('\n');
+    
+}
+
 void get_command(char *buffer, int valread, client_t *client)
 {
     char tmp_buff[BUFF_SIZE];
