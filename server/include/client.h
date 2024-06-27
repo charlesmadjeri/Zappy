@@ -33,8 +33,7 @@ typedef struct linked_client_s {
 ** @param addrClient
 ** @param client
 **/
-void init_client(int socketClient, struct sockaddr_in addrClient,
-client_t *client);
+void init_client(int socketClient, sockaddr_in_t addrClient, client_t *client);
 
 /**
 ** @brief

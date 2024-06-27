@@ -22,7 +22,7 @@ void help(void)
     exit(0);
 }
 
-void sig_int_catcher(int sig __attribute__((__unused)))
+void sig_int_catcher(int sig)
 {
     if (sig == SIGINT) {
         printf("\nServer is closing by signal\n");
@@ -36,12 +36,10 @@ void main_loop(server_t *server, game_t *game)
     fd_set writefd;
 
     while (server->status == false) {
-        FD_ZERO(&readfd);
-        FD_ZERO(&writefd);
-        FD_SET(server->sockfd, &readfd);
+        reset_fd(server, &readfd, &writefd);
         select(FD_SETSIZE, &readfd, &writefd, NULL, NULL);
         manage_connection(server, &readfd);
-        manage_message(&server, &game);
+        manage_message(server, game, &readfd);
     }
 }
 

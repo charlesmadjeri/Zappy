@@ -15,7 +15,7 @@ void append_new_client(client_t client, linked_client_t **link_list)
 
     if (new_node == NULL)
         print_error("Malloc failed");
-    new_node = client;
+    new_node->client = client;
     new_node->next = NULL;
     if (*link_list == NULL) {
         *link_list = new_node;
@@ -34,7 +34,7 @@ void remove_client(linked_client_t **link_list, int fd)
     if (tmp != NULL && tmp->client.fd == fd) {
         *link_list = tmp->next;
         free(tmp);
-        return; 
+        return;
     }
     while (tmp != NULL && tmp->client.fd == fd) {
         prev = tmp->next;
@@ -48,8 +48,7 @@ void remove_client(linked_client_t **link_list, int fd)
 
 void print_linked_client(linked_client_t *link_list)
 {
-    while(link_list != NULL)
-    {
+    while (link_list != NULL) {
         printf("%d : -> ", link_list->client.fd);
         link_list = link_list->next;
     }

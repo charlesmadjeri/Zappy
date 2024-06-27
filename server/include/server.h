@@ -21,13 +21,17 @@
     #include <time.h>
     #include "client.h"
     #include "player.h"
+    #include "socket.h"
     #include "map.h"
 
 /*----------MACROS----------*/
 
     #define MAX_CLIENTS 100
+    #define BUFF_SIZE 1024
 
 /*----------TYPEDEFS----------*/
+
+typedef struct sockaddr_in sockaddr_in_t;
 
 typedef struct game_s {
     int id_count;
@@ -76,6 +80,23 @@ void start_server(server_t *server);
 /**
 **@brief
 **
+**@param port
+**@return struct sockaddr_in
+**/
+struct sockaddr_in generate_addr(const int port);
+
+/**
+** @brief
+**
+** @param server
+** @param readfd
+** @param writefd
+**/
+void reset_fd(server_t *server, fd_set *readfd, fd_set *writefd);
+
+/**
+**@brief
+**
 **@param ac
 **@param av
 **/
@@ -93,14 +114,6 @@ void init_game(int ac, char **av, game_t *game);
 /**
 **@brief
 **
-**@param port
-**@return struct sockaddr_in
-**/
-struct sockaddr_in generate_addr(const int port);
-
-/**
-**@brief
-**
 **@param error
 **/
 void print_error(char *error);
@@ -112,6 +125,15 @@ void print_error(char *error);
 **@param readfd
 **/
 void manage_connection(server_t *server, fd_set *readfd);
+
+/**
+** @brief
+**
+** @param server
+** @param game
+** @param readfd
+**/
+void manage_message(server_t *server, game_t *game, fd_set *readfd);
 
 /**
 ** @brief
