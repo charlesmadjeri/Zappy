@@ -2,6 +2,8 @@
 import socket
 import sys
 from AI import connect
+from AI import incantation
+
 class Player:
     def __init__(self):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,9 +21,11 @@ def spiral_search(player):
     steps = 1
     step_limit = 1
     turn_count = 0
-    items_of_interest = ["food", "linemate"]
     while True:
-        visible_tiles = connect.look(player.client)
+        items_of_interest = incantation.get_items_of_interest(player)
+        if items_of_interest == [] :
+            incantation.incantate(player)
+            continue
         loot_tiles(player, items_of_interest)
 
         # Move forward
