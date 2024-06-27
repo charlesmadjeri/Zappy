@@ -5,18 +5,19 @@
 ** client
 */
 
-#ifndef CLIENT_H_
-    #define CLIENT_H_
+#pragma once
 
-    #include "server.h"
-    #include "player.h"
+#include "zappy.h"
+#include "command.h"
+#include "player.h"
+
+typedef struct sockaddr_in sockaddr_in_t;
 
 /*client_struct*/
 typedef struct client_s {
     int fd;
     struct sockaddr_in address;
-    char *message;
-    char *send;
+    linked_command_t *commands;
     player_t *player;
 } client_t;
 
@@ -57,5 +58,3 @@ void remove_client(linked_client_t **link_list, int fd);
 ** @param link_list
 **/
 void print_linked_client(linked_client_t *link_list);
-
-#endif /* !CLIENT_H_ */
