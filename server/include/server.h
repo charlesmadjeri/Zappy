@@ -46,11 +46,6 @@ void help(void);
 **/
 int main_server(int ac, char **av);
 
-/**
-**@brief
-**
-**@param server
-**/
 void start_server(server_t *server);
 
 /**
