@@ -16,6 +16,7 @@ namespace GUIClient {
             ~Inventory();
 
             void setContent(Ressources ressources) { _ressources = ressources; };
+            Ressources &getContent() { return _ressources; };
         protected:
         private:
             Ressources _ressources;

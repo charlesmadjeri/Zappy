@@ -15,7 +15,6 @@ GUIClient::TileComponent::TileComponent(uint8_t x, uint8_t y)
 {
     this->_x = x;
     this->_y = y;
-    this->_content = {0, 0, 0, 0, 0, 0, 0};
 }
 
 void GUIClient::TileComponent::setContent(GUIClient::Ressources content)

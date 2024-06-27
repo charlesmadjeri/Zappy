@@ -229,6 +229,24 @@ GUIClient::IncantationComponent GUIClient::Communication::_getIncantationFromCom
     return incantation;
 }
 
+void GUIClient::Communication::_handleRessourceDrop(const std::vector<std::string> &command, GUI &gui)
+{
+    Player &player = gui.getPlayer(getNumber(command[0]));
+    RessourceID ressourceId = (RessourceID) getNumber(command[1]);
+
+    gui.getMap().getTile(player.getX(), player.getY()).getContent().addRessource(ressourceId);
+    player.getInventory().getContent().removeRessource(ressourceId);
+}
+
+void GUIClient::Communication::_handleRessourceCollection(const std::vector<std::string> &command, GUI &gui)
+{
+    Player &player = gui.getPlayer(getNumber(command[0]));
+    RessourceID ressourceId = (RessourceID) getNumber(command[1]);
+
+    gui.getMap().getTile(player.getX(), player.getY()).getContent().removeRessource(ressourceId);
+    player.getInventory().getContent().addRessource(ressourceId);
+}
+
 sf::Vector2i GUIClient::Communication::requestMapSize()
 {
     std::vector<std::string> data;
@@ -324,8 +342,10 @@ void GUIClient::Communication::runCommand(Commands command, std::vector<std::str
         case Commands::PFK:
             break;
         case Commands::PDR:
+            this->_handleRessourceDrop(args, gui);
             break;
         case Commands::PGT:
+            this->_handleRessourceCollection(args, gui);
             break;
         case Commands::PDI:
             gui.removePlayer(getNumber(args[0]));

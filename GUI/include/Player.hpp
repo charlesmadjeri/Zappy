@@ -37,7 +37,6 @@ namespace GUIClient {
             Inventory &getInventory() { return _inventory; };
             int getX() const { return _pos.x; };
             int getY() const { return _pos.y; };
-            sf::Vector2f getPos() const { return sf::Vector2f(_pos.x, _pos.y); };
             int getLevel() const { return _level; };
             std::shared_ptr<Team> getTeam() { return _team; };
             int getId() const { return _id; };

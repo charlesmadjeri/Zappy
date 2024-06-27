@@ -96,6 +96,8 @@ namespace GUIClient {
             Player::Position _getPlayerPositionFromCommand(const std::vector<std::string> &command);
             Ressources _getPlayerInventoryFromCommand(const std::vector<std::string> &command);
             IncantationComponent _getIncantationFromCommand(const std::vector<std::string> &command);
+            void _handleRessourceDrop(const std::vector<std::string> &command, GUI &gui);
+            void _handleRessourceCollection(const std::vector<std::string> &command, GUI &gui);
             std::vector<int> _convertPlayerIDs(const std::vector<std::string> &playerIDs);
 
             static const std::map<std::string, Commands> _commands;

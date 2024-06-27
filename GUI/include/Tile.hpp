@@ -7,19 +7,12 @@
 
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include <cstdint>
+#include <SFML/Graphics.hpp>
+#include "Ressources.hpp"
 
 namespace GUIClient {
-    struct Ressources {
-        int food;
-        int linemate;
-        int deraumere;
-        int sibur;
-        int mendiane;
-        int phiras;
-        int thystame;
-    };
+
 
     class TileComponent {
         public:
@@ -30,8 +23,9 @@ namespace GUIClient {
             uint8_t getY() const { return this->_y; };
             void setX(const uint8_t x) { this->_x = x; };
             void setY(const uint8_t y) { this->_y = y; };
-            Ressources getContent() const { return this->_content; };
+            Ressources &getContent() { return this->_content; };
             void setContent(Ressources content);
+
         protected:
             Ressources _content;
             uint8_t _x;
