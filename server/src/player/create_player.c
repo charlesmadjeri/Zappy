@@ -35,10 +35,10 @@ void create_player(char *team_name, player_t *player, game_t *game)
 {
     player->id = game->id_count;
     game->id_count++;
-    player->direction = 1;
     player->inventory = init_inventory();
     player->level = 1;
     player->state = NONE;
     player->team_name = team_name;
     player->coords = rand_coords(game);
+    player->direction = rand() % 4;
 }
