@@ -7,39 +7,10 @@
 
 #include <iostream>
 #include "Player.hpp"
+#include "Team.hpp"
 
-GUIClient::Inventory &GUIClient::Player::getInventoryFromServer()
+void GUIClient::Player::setTeam(std::shared_ptr<Team> team)
 {
-    std::cout << "pin " << this->_id << "\n" << std::endl;
-    // return Inventory();
-}
-
-GUIClient::Inventory &GUIClient::Player::getInventory()
-{
-    return this->_inventory;
-}
-
-int GUIClient::Player::getX() const
-{
-    return this->_x;
-}
-
-int GUIClient::Player::getY() const
-{
-    return this->_y;
-}
-
-sf::Vector2f GUIClient::Player::getPos() const
-{
-    return sf::Vector2f(this->_x, this->_y);
-}
-
-int GUIClient::Player::getLevel() const
-{
-    return this->_level;
-}
-
-int GUIClient::Player::getId() const
-{
-    return this->_id;
+    this->_team = team;
+    this->_team->addPlayer(*this);
 }

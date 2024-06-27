@@ -30,10 +30,15 @@ void GUIClient::Map::create(uint width, uint height)
 
     for (uint i = 0; i < width; i++) {
         for (uint j = 0; j < height; j++) {
-            Tile tile(tileWidth, tileHeight, i * tileWidth, j * tileHeight);
+            Tile tile(tileWidth, tileHeight, i, j);
             this->_tiles.push_back(tile);
         }
     }
+}
+
+void GUIClient::Map::setTile(GUIClient::TileComponent component)
+{
+    this->_tiles[component.getX() + component.getY() * this->_width].setContent(component.getContent());
 }
 
 void GUIClient::Map::draw(sf::RenderTarget& target, sf::RenderStates states) const

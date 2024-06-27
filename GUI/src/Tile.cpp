@@ -11,14 +11,26 @@
 const sf::Color GUIClient::Tile::_cellColor = sf::Color::White;
 const sf::Color GUIClient::Tile::_cellOutlineColor = sf::Color::Green;
 
-GUIClient::Tile::Tile(int width, int height, float x, float y)
+GUIClient::TileComponent::TileComponent(uint8_t x, uint8_t y)
 {
-    this->_center = sf::Vector2f(x + width / 2, y + height / 2);
+    this->_x = x;
+    this->_y = y;
+    this->_content = {0, 0, 0, 0, 0, 0, 0};
+}
+
+void GUIClient::TileComponent::setContent(GUIClient::Ressources content)
+{
+    this->_content = content;
+}
+
+GUIClient::Tile::Tile(int width, int height, uint8_t x, uint8_t y) : TileComponent(x, y)
+{
+    this->_center = sf::Vector2f(x * width * 1.5, y * height * 1.5);
     this->_shape = sf::RectangleShape(sf::Vector2f(width, height));
     this->_shape.setFillColor(this->_cellColor);
     this->_shape.setOutlineColor(this->_cellOutlineColor);
     this->_shape.setOutlineThickness(-2);
-    this->_shape.setPosition(x, y);
+    this->_shape.setPosition(x * width, y * height);
 
     if (DEBUG) {
         this->_centerShape = sf::RectangleShape(sf::Vector2f(width / 10, height / 10));
@@ -34,3 +46,4 @@ void GUIClient::Tile::draw(sf::RenderTarget& target, sf::RenderStates states) co
     if (DEBUG)
         target.draw(this->_centerShape, states);
 }
+
