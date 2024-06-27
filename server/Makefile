@@ -16,6 +16,7 @@ SRC = 			src/main.c 					\
 				src/map.c					\
 				src/client/client.c     	\
 				src/client/linked_client.c	\
+				src/client/get_command.c	\
 				src/args/args_manager.c		\
 				src/args/get_teams.c		\
 

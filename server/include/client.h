@@ -11,12 +11,21 @@
     #include "server.h"
     #include "player.h"
 
+/*----------MACROS----------*/
+
+    #define BUFF_SIZE 1024
+
+/*----------TYPEDEFS----------*/
+
+typedef struct sockaddr_in sockaddr_in_t;
+
 /*client_struct*/
 typedef struct client_s {
     int fd;
-    struct sockaddr_in address;
-    char *message;
-    char *send;
+    bool status;
+    sockaddr_in_t address;
+    char message[BUFF_SIZE];
+    char send[BUFF_SIZE];
     player_t *player;
 } client_t;
 
@@ -52,10 +61,19 @@ void append_new_client(client_t client, linked_client_t **link_list);
 void remove_client(linked_client_t **link_list, int fd);
 
 /**
-9* @brief
+** @brief
 **
 ** @param link_list
 **/
 void print_linked_client(linked_client_t *link_list);
+
+/**
+** @brief Get the command object
+**
+** @param buffer
+** @param valread
+** @param client
+**/
+void get_command(char *buffer, int valread, client_t *client);
 
 #endif /* !CLIENT_H_ */

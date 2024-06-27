@@ -11,8 +11,11 @@ void init_client(int socketClient, sockaddr_in_t addrClient, client_t *client)
 {
     client->fd = socketClient;
     client->address = addrClient;
-    client->message = NULL;
-    client->send = NULL;
+    client->status = true;
+    memset(client->message, 0, BUFF_SIZE);
+    memset(client->send, 0, BUFF_SIZE);
+    client->message[0] = '\0';
+    client->send[0] = '\0';
     client->player = NULL;
 }
 
@@ -45,7 +48,7 @@ void manage_message(server_t *server, game_t *game, fd_set *readfd)
         if (FD_ISSET(tmp->client.fd, readfd)) {
             memset(buffer, 0, sizeof(buffer));
             valread = read(tmp->client.fd, &buffer, BUFF_SIZE);
-            printf("%s\n", buffer);
+            get_command(buffer, valread, &tmp->client);
         }
         tmp = tmp->next;
     }
