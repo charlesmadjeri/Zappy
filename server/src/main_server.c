@@ -30,7 +30,7 @@ void sig_int_catcher(int sig __attribute__((__unused)))
     }
 }
 
-void main_loop(server_t *server)
+void main_loop(server_t *server, game_t *game)
 {
     fd_set readfd;
     fd_set writefd;
@@ -41,6 +41,7 @@ void main_loop(server_t *server)
         FD_SET(server->sockfd, &readfd);
         select(FD_SETSIZE, &readfd, &writefd, NULL, NULL);
         manage_connection(server, &readfd);
+        manage_message(&server, &game);
     }
 }
 
@@ -57,7 +58,7 @@ int main_server(int ac, char **av)
     init_server(ac, av, &server);
     start_server(&server);
     printf("========================\n");
-    main_loop(&server);
+    main_loop(&server, &game);
     free_memory(&server, &game);
     return (0);
 }

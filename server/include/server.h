@@ -48,7 +48,7 @@ typedef struct server_s {
     fd_set readfds;
     fd_set writefds;
     socklen_t socket_size;
-    linked_lient_t *clients;
+    linked_client_t *clients;
 } server_t;
 
 /**
