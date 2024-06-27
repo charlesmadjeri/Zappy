@@ -24,8 +24,9 @@ static inventory_t init_inventory(void)
 
 int *rand_coords(game_t *game)
 {
-    srand(time(NULL));
     int *coords = malloc(sizeof(int) * 2);
+
+    srand(time(NULL));
     coords[0] = rand() % game->map.x;
     coords[1] = rand() % game->map.y;
     return coords;

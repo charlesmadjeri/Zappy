@@ -27,11 +27,12 @@ void append_new_commands(char **new_command, linked_command_t **list)
 
 linked_command_t *pop_command(linked_command_t *node)
 {
-    free(node->command);
-    linked_command_t *temp = node->next;
-    free(node);
+    linked_command_t *temp;
 
-    return(temp);
+    free(node->command);
+    temp = node->next;
+    free(node);
+    return (temp);
 }
 
 int count_commands(linked_command_t *node, int len)
