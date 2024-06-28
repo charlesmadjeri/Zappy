@@ -21,3 +21,5 @@ char *right(player_t *player);
 char *left(player_t *player);
 char *forward(player_t *player, map_t *map);
 char *inventory(inventory_t *inventory);
+char *take(map_t *map, player_t *player, char *object);
+char *set(map_t *map, player_t *player, char *object);

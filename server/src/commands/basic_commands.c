@@ -5,7 +5,7 @@
 ** basic_commands
 */
 
-#include "basic_commands.h"
+#include "ai_commands.h"
 
 char *right(player_t *player)
 {
