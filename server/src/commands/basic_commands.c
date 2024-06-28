@@ -26,9 +26,9 @@ static int *get_wrapped_index(int *coord, int x, int y)
     if (coord[0] >= x)
         coord[0] = 0;
     if (coord[1] < 0)
-        coord[1] =  y - 1;
+        coord[1] = y - 1;
     if (coord[1] >= y)
-        coord[1] =  0;
+        coord[1] = 0;
     return coord;
 }
 
