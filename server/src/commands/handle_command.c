@@ -34,9 +34,7 @@ void gui_init_message(client_t *client, game_t *game)
     }
     strncpy(client->write, message, BUFF_SIZE_GUI - 1);
     client->write[BUFF_SIZE_GUI - 1] = '\0';
-    printf("%s", client->write);
 }
-
 
 void assign_player(char **command, client_t *client, game_t *game)
 {
@@ -52,25 +50,15 @@ void assign_player(char **command, client_t *client, game_t *game)
     }
     create_player(game->teams[i], client->player, game);
     client->player->state = ALIVE;
-    sprintf(client->write, "%d\n %d %d\n", client->player->id, game->map.x, game->map.y);
-
+    sprintf(client->write, "%d\n %d %d\n", client->player->id,
+    game->map.x, game->map.y);
 }
-
-void process_command(char **command, client_t *client, game_t *game)
-{
-    if (strcpy(client->player->team_name, "GUI")) {
-        //use_command_gui();
-    } else {
-        //use_command_player();
-    }
-}
-
 
 void first_command(char **command, client_t *client, game_t *game)
 {
     char *message;
 
-    if (strcmp(command[0], "GRAPHIC" ) == 0) {
+    if (strcmp(command[0], "GRAPHIC") == 0) {
         create_player("GUI", client->player, game);
         gui_init_message(client, game);
         game->tv.tv_sec = 1;

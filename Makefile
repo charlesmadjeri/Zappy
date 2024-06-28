@@ -36,4 +36,3 @@ gui:
 
 ai:
 	make -C AI
-	
