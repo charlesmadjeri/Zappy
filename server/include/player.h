@@ -14,6 +14,7 @@
 /*----------MACROS----------*/
 
 #define COMMANDS_MAX 10
+#define BUFF_SIZE_PLAYER 8000
 
 /*----------TYPEDEFS----------*/
 
@@ -35,7 +36,7 @@ typedef struct player_s {
     inventory_t inventory;
     int *coords;
     state_t state;
-    char write[1024];
+    char write[BUFF_SIZE_PLAYER];
 } player_t;
 
 void create_player(char *team_name, player_t *player, game_t *game);

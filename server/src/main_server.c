@@ -40,6 +40,7 @@ void main_loop(server_t *server, game_t *game)
         select(FD_SETSIZE, &readfd, &writefd, NULL, &game->tv);
         manage_connection(server, &readfd);
         manage_message(server, game, &readfd);
+        server->status = true;
     }
 }
 
