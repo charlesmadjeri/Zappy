@@ -13,7 +13,7 @@
 
 /*----------MACROS----------*/
 
-    #define BUFF_SIZE 8000
+    #define BUFF_SIZE_GUI 8000
 
 /*----------TYPEDEFS----------*/
 
@@ -27,7 +27,7 @@ typedef struct client_s {
     int fd;
     bool status;
     struct sockaddr_in address;
-    char write[BUFF_SIZE];
+    char write[BUFF_SIZE_GUI];
     linked_command_t *commands;
     player_t *player;
 } client_t;
