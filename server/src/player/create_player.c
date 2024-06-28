@@ -10,7 +10,6 @@
 
 void init_inventory(inventory_t *inventory)
 {
-
     inventory->deraumere = 0;
     inventory->food = 0;
     inventory->linemate = 0;

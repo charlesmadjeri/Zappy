@@ -12,15 +12,13 @@ void free_clients(server_t *server)
     linked_client_t *tmp = server->clients;
     linked_client_t *next;
 
-    while(tmp != NULL) {
+    while (tmp != NULL) {
         next = tmp->next;
         free(tmp);
         tmp = next;
     }
-
     server->clients = NULL;
 }
-
 
 void free_teams(game_t *game)
 {
