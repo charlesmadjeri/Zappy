@@ -16,8 +16,10 @@ SRC = 			src/main.c 						\
 				src/map.c						\
 				src/client/client.c     		\
 				src/client/linked_client.c		\
+				src/commands/handle_command.c	\
 				src/commands/linked_commands.c	\
 				src/player/create_player.c 		\
+				src/client/get_command.c		\
 				src/args/args_manager.c			\
 				src/args/get_teams.c			\
 

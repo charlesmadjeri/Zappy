@@ -31,7 +31,8 @@ void init_game(int ac, char **av, game_t *game)
     game->id_count = 0;
     game->map = create_world(get_width(ac, av), get_height(ac, av));
     game->nb_cli = get_clientnb(ac, av);
-    game->time = clock();
+    game->tv.tv_sec = 0;
+    game->tv.tv_usec = 0;
     init_teams(ac, av, game);
     printf("nb_teams = %d\nteams =", game->nb_teams);
     for (int i = 0; game->teams[i] != NULL; i++)

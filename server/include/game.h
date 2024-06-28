@@ -13,7 +13,7 @@
 typedef struct game_s {
     int id_count;
     int freq;
-    size_t time;
+    struct timeval tv;
     char **teams;
     int nb_teams;
     int nb_cli;
