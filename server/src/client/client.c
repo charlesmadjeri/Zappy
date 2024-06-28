@@ -44,7 +44,7 @@ void manage_message(server_t *server, game_t *game, fd_set *readfd)
         if (FD_ISSET(tmp->client.fd, readfd)) {
             memset(buffer, 0, sizeof(buffer));
             valread = read(tmp->client.fd, &buffer, BUFF_SIZE);
-            printf("%s\n", buffer);
+            get_command(buffer, valread, &tmp->client);
         }
         tmp = tmp->next;
     }
