@@ -5,10 +5,10 @@
 ** args
 */
 
-#ifndef ARGS_H_
-    #define ARGS_H_
+#pragma once
 
-    #include "server.h"
+#include "zappy.h"
+#include "game.h"
 
 /**
  * @brief Get the port object
@@ -60,5 +60,3 @@ int get_clientnb(int ac, char **av);
 **
 **/
 void get_teams(int ac, char **av, int i, game_t *game);
-
-#endif /* !ARGS_H_ */
