@@ -33,6 +33,6 @@ namespace GUIClient {
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
         protected:
         private:
-            sf::CircleShape _triangle;
+            sf::CircleShape _circle;
     };
 }

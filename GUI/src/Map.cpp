@@ -9,6 +9,9 @@
 #include "Map.hpp"
 #include <SFML/Graphics.hpp>
 
+uint GUIClient::Map::_width = 30;
+uint GUIClient::Map::_height = 30;
+
 GUIClient::Map::Map(uint width, uint height)
 {
     this->create(width, height);

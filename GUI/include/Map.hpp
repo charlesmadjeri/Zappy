@@ -24,10 +24,12 @@ namespace GUIClient {
             void create(uint width, uint height);
             Tile &getTile(uint8_t x, uint8_t y) { return _tiles[x + y * _width]; }
             void setTile(TileComponent component);
+            static uint getWidth() { return _width; }
+            static uint getHeight() { return _height; }
         protected:
         private:
-            uint _width;
-            uint _height;
+            static uint _width;
+            static uint _height;
             std::vector<Tile> _tiles;
     };
 }

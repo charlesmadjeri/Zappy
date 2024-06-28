@@ -183,7 +183,7 @@ GUIClient::Player GUIClient::Communication::_getNewPlayerFromCommand(const std::
     Player player(getNumber(command[0]));
     std::vector<std::shared_ptr<Team>> teams = GUI::getTeams();
 
-    player.setPos(getNumber(command[1]), getNumber(command[2]), (Orientation) getNumber(command[3]));
+    player.setPos({getNumber(command[1]), getNumber(command[2]), (Orientation) getNumber(command[3])});
     player.setLevel(getNumber(command[4]));
     for (std::shared_ptr<Team> team : teams) {
         if (team->getName() == command[5]) {
@@ -197,10 +197,27 @@ GUIClient::Player GUIClient::Communication::_getNewPlayerFromCommand(const std::
 GUIClient::Player::Position GUIClient::Communication::_getPlayerPositionFromCommand(const std::vector<std::string> &command)
 {
     GUIClient::Player::Position pos;
+    int orientation = getNumber(command[3]);
 
     pos.x = getNumber(command[1]);
     pos.y = getNumber(command[2]);
-    pos.orientation = (Orientation) getNumber(command[3]);
+    switch (orientation) {
+        case 1:
+            pos.orientation = Orientation::UP;
+            break;
+        case 2:
+            pos.orientation = Orientation::LEFT;
+            break;
+        case 3:
+            pos.orientation = Orientation::DOWN;
+            break;
+        case 4:
+            pos.orientation = Orientation::RIGHT;
+            break;
+        default:
+            pos.orientation = Orientation::UP;
+            break;
+    }
     return pos;
 }
 
@@ -363,6 +380,7 @@ void GUIClient::Communication::runCommand(Commands command, std::vector<std::str
         case Commands::SEG:
             break;
         case Commands::SMG:
+            gui.writeServerMessage(args[0]);
             break;
         case Commands::SUC:
             break;

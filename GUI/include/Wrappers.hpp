@@ -18,5 +18,6 @@ namespace Wrappers {
     class Players : public std::list<std::shared_ptr<GUIClient::Player>> {
         public:
             std::shared_ptr<GUIClient::Player> &operator[](std::size_t idx);
+            void updatePlayerTextInfos();
     };
 }

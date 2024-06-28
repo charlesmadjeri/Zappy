@@ -48,4 +48,3 @@ void GUIClient::Ressources::removeRessource(RessourceID ressourceId)
 {
     this->getRessource(ressourceId)--;
 }
-
