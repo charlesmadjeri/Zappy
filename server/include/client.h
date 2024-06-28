@@ -20,6 +20,8 @@
 typedef struct sockaddr_in sockaddr_in_t;
 typedef struct linked_command_s linked_command_t;
 
+typedef struct sockaddr_in sockaddr_in_t;
+
 /*client_struct*/
 typedef struct client_s {
     int fd;
