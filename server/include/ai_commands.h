@@ -26,3 +26,4 @@ char *inventory(inventory_t *inventory);
 char *take(map_t *map, player_t *player, char *object);
 char *set(map_t *map, player_t *player, char *object);
 char *eject(player_t *player, server_t *server);
+char *incantation(map_t *map, player_t *player, server_t *server);
