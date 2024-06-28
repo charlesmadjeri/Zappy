@@ -70,3 +70,49 @@ char *inventory(inventory_t *inventory)
         inventory->phiras, inventory->thystame);
     return str;
 }
+
+static bool eject_switch(linked_client_t *client, int direction)
+{
+    switch (direction) {
+        case RIGHT:
+            client->client.player->coords[0] ++;
+            break;
+        case LEFT:
+            client->client.player->coords[0] --;
+            break;
+        case UP:
+            client->client.player->coords[1] --;
+            break;
+        case DOWN:
+            client->client.player->coords[1] ++;
+            break;
+        default:
+            return false;
+    }
+    return true;
+}
+
+static bool eject_clients_on_tile(linked_client_t *client,
+    int x, int y, int direction)
+{
+    bool result = true;
+
+    if (client->client.player->coords[0] == x
+        && client->client.player->coords[1] == y) {
+        if (eject_switch(client, direction) == false)
+            result = false;
+    }
+    if (client->next != NULL) {
+        if (eject_clients_on_tile(client, x, y, direction) == true)
+            result = true;
+    }
+    return result;
+}
+
+char *eject(player_t *player, server_t *server)
+{
+    if (eject_clients_on_tile(server->clients, player->coords[0],
+        player->coords[1], player->direction) == true)
+        return "ok";
+    return "ko";
+}

@@ -11,6 +11,8 @@
 #include "player.h"
 #include "inventory.h"
 #include "map.h"
+#include "client.h"
+#include "server.h"
 
 #define UP 0
 #define RIGHT 1
@@ -23,3 +25,4 @@ char *forward(player_t *player, map_t *map);
 char *inventory(inventory_t *inventory);
 char *take(map_t *map, player_t *player, char *object);
 char *set(map_t *map, player_t *player, char *object);
+char *eject(player_t *player, server_t *server);

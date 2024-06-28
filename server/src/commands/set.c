@@ -57,7 +57,7 @@ static char *snd_condition(inventory_t *current,
     return "ok";
 }
 
-char *take(map_t *map, player_t *player, char *object)
+char *set(map_t *map, player_t *player, char *object)
 {
     inventory_t *current = &map->tile[player->coords[0]][player->coords[1]];
 
