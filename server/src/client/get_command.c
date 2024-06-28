@@ -12,7 +12,7 @@
 void create_command(char *buffer, client_t *client, game_t *game)
 {
     char *token;
-    char** command = malloc(sizeof(char *));
+    char **command = malloc(sizeof(char *));
 
     token = strtok(buffer, " ");
     for (int i = 0; token != NULL; i++) {
@@ -23,11 +23,10 @@ void create_command(char *buffer, client_t *client, game_t *game)
     if (client->player == NULL) {
         first_command(command, client, game);
     } else {
-
+        token;
     }
-    for (int i = 0; command[i] != NULL; i++) {
-
-    }
+    for (int i = 0; command[i] != NULL; i++)
+        free(command[i]);
 }
 
 void get_command(char *buffer, int valread, client_t *client, game_t *game)

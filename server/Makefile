@@ -17,10 +17,6 @@ SRC = 			src/main.c 						\
 				src/client/client.c     		\
 				src/client/linked_client.c		\
 				src/commands/handle_command.c	\
-				src/commands/take.c	\
-				src/commands/basic_commands.c	\
-				src/commands/incantation.c	\
-				src/commands/set.c	\
 				src/commands/linked_commands.c	\
 				src/player/create_player.c 		\
 				src/client/get_command.c		\
@@ -47,7 +43,7 @@ clean:
 	$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) ../$(NAME)
 
 re:		fclean all
 
