@@ -14,7 +14,7 @@
 /*----------MACROS----------*/
 
 #define COMMANDS_MAX 10
-#define BUFF_SIZE_PLAYER
+#define BUFF_SIZE_PLAYER 2000
 
 /*----------TYPEDEFS----------*/
 
