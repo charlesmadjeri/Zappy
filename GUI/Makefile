@@ -31,6 +31,7 @@ NAME	=	zappy_gui
 .PHONY:	all re
 all:	CXXFLAGS += $(RELEASE)
 all:	$(NAME)
+		mv $(NAME) ../$(NAME)
 re:	fclean all
 
 .PHONY:	debug redebug
@@ -89,4 +90,4 @@ clean:	clean_vgcore
 .PHONY:	fclean
 fclean:	clean
 	@echo Removing binary.
-	@rm -f $(NAME)
+	@rm -f ../$(NAME)
