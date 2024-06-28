@@ -22,13 +22,13 @@ char *left(player_t *player)
 static int *get_wrapped_index(int *coord, int x, int y)
 {
     if (coord[0] < 0)
-        return x - 1;
+        coord[0] = x - 1;
     if (coord[0] >= x)
-        return 0;
+        coord[0] = 0;
     if (coord[1] < 0)
-        return y - 1;
+        coord[1] =  y - 1;
     if (coord[1] >= y)
-        return 0;
+        coord[1] =  0;
     return coord;
 }
 
