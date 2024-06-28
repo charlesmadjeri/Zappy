@@ -53,7 +53,7 @@ GUIClient::Tile::Tile(int width, int height, uint8_t x, uint8_t y) : TileCompone
     for (int i = 0; i < 7; i++) {
         sf::Text text(std::to_string(ressources.getRessource(static_cast<RessourceID>(i))), GUI::getFont(), 12);
         text.setPosition(this->_shape.getPosition().x + 2, this->_shape.getPosition().y + 2 + i * 10);
-        text.setColor(colors[i]);
+        text.setFillColor(colors[i]);
         this->_texts.push_back(text);
     }
 }

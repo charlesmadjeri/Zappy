@@ -44,7 +44,7 @@ void GUIClient::Player::setTeam(std::shared_ptr<Team> team)
     this->_team = team;
     this->_team->addPlayer(*this);
     this->_playerShape.setFillColor(this->_team->getColor());
-    this->_textInfos.setColor(this->_team->getColor());
+    this->_textInfos.setFillColor(this->_team->getColor());
 }
 
 void GUIClient::Player::setPos(int x, int y)

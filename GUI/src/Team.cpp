@@ -28,7 +28,7 @@ GUIClient::Team::Team(std::string &name)
     this->_players = Wrappers::Players();
     this->_color = teamColors[colorIndex];
     this->_text.setString(name);
-    this->_text.setColor(this->_color);
+    this->_text.setFillColor(this->_color);
     this->_text.setCharacterSize(20);
     this->_text.setPosition(WIN_H + 10, 40 + colorIndex * 30);
     this->_text.setFont(GUI::getFont());

@@ -39,7 +39,7 @@ namespace GUIClient {
             ~GUI() = default;
 
             void run();
-            void writeServerMessage(std::string &msg) {};
+            void writeServerMessage(std::string &msg) { (void)msg; };
             void startIncantation(IncantationComponent incantation, std::vector<int> playerIDs);
             void stopIncantation(IncantationComponent Incantation);
 

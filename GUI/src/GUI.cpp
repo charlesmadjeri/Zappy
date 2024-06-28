@@ -34,7 +34,7 @@ void GUIClient::GUI::_initTexts()
         sf::Color &color = std::get<3>(textElement);
         this->_texts[type] = sf::Text(text, GUI::getFont(), 20);
         this->_texts[type].setPosition(position);
-        this->_texts[type].setColor(color);
+        this->_texts[type].setFillColor(color);
     }
 }
 
