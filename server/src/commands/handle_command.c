@@ -14,8 +14,8 @@
 
 void gui_init_message(client_t *client, game_t *game)
 {
-    char new_line[BUFF_SIZE];
-    char message[BUFF_SIZE];
+    char new_line[BUFF_SIZE_GUI];
+    char message[BUFF_SIZE_GUI];
 
     sprintf(new_line, "msz %d %d\n", game->map.x, game->map.y);
     strcat(message, new_line);
@@ -32,8 +32,9 @@ void gui_init_message(client_t *client, game_t *game)
             strcat(message, new_line);
         }
     }
-    strncpy(client->write, message, BUFF_SIZE - 1);
-    client->write[BUFF_SIZE - 1] = '\0';
+    strncpy(client->write, message, BUFF_SIZE_GUI - 1);
+    client->write[BUFF_SIZE_GUI - 1] = '\0';
+    printf("%s", client->write);
 }
 
 
@@ -53,6 +54,15 @@ void assign_player(char **command, client_t *client, game_t *game)
     client->player->state = ALIVE;
     sprintf(client->write, "%d\n %d %d\n", client->player->id, game->map.x, game->map.y);
 
+}
+
+void process_command(char **command, client_t *client, game_t *game)
+{
+    if (strcpy(client->player->team_name, "GUI")) {
+        //use_command_gui();
+    } else {
+        //use_command_player();
+    }
 }
 
 
