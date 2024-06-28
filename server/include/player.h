@@ -17,12 +17,6 @@
 
 /*----------TYPEDEFS----------*/
 
-/*----------MACROS----------*/
-
-    #define COMMANDS_MAX 10
-
-/*----------TYPEDEFS----------*/
-
 /*player_state*/
     typedef enum state_s {
     DEAD,
@@ -37,10 +31,11 @@ typedef struct player_s {
     int direction;
     char *team_name;
     int level;
-    char *command[COMMANDS_MAX];
+    char **command;
     inventory_t inventory;
     int *coords;
     state_t state;
+    char write[1024];
 } player_t;
 
 void create_player(char *team_name, player_t *player, game_t *game);

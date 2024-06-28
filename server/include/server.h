@@ -27,6 +27,7 @@ typedef struct server_s {
     struct sockaddr_in addr_serv;
     fd_set readfds;
     fd_set writefds;
+    struct timeval time;
     socklen_t socket_size;
     linked_client_t *clients;
 } server_t;

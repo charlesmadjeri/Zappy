@@ -11,20 +11,21 @@
 #include "command.h"
 #include "player.h"
 
-typedef struct sockaddr_in sockaddr_in_t;
-
 /*----------MACROS----------*/
 
-    #define BUFF_SIZE 1024
+    #define BUFF_SIZE 8000
 
 /*----------TYPEDEFS----------*/
 
 typedef struct sockaddr_in sockaddr_in_t;
+typedef struct linked_command_s linked_command_t;
 
 /*client_struct*/
 typedef struct client_s {
     int fd;
+    bool status;
     struct sockaddr_in address;
+    char write[BUFF_SIZE];
     linked_command_t *commands;
     player_t *player;
 } client_t;
@@ -74,4 +75,4 @@ void print_linked_client(linked_client_t *link_list);
 ** @param valread
 ** @param client
 **/
-void get_command(char *buffer, int valread, client_t *client);
+void get_command(char *buffer, int valread, client_t *client, game_t *game);
