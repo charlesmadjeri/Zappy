@@ -6,14 +6,17 @@
 */
 
 #include "server.h"
+#include "client.h"
+#include "player.h"
 
 void init_client(int socketClient, sockaddr_in_t addrClient, client_t *client)
 {
     client->fd = socketClient;
     client->address = addrClient;
-    client->message = NULL;
-    client->send = NULL;
     client->player = NULL;
+    client->commands = NULL;
+    client->status = true;
+    memset(client->write, 0, BUFF_SIZE);
 }
 
 void manage_connection(server_t *server, fd_set *readfd)
@@ -45,7 +48,7 @@ void manage_message(server_t *server, game_t *game, fd_set *readfd)
         if (FD_ISSET(tmp->client.fd, readfd)) {
             memset(buffer, 0, sizeof(buffer));
             valread = read(tmp->client.fd, &buffer, BUFF_SIZE);
-            printf("%s\n", buffer);
+            get_command(buffer, valread, &tmp->client, game);
         }
         tmp = tmp->next;
     }

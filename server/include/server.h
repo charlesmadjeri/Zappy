@@ -5,44 +5,20 @@
 ** server
 */
 
-#ifndef SERVER_H_
-    #define SERVER_H_
+#pragma once
 
 /*----------INCLUDES----------*/
-    #include <netinet/in.h>
-    #include <sys/socket.h>
-    #include <sys/select.h>
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
-    #include <unistd.h>
-    #include <stdbool.h>
-    #include <signal.h>
-    #include <time.h>
-    #include "client.h"
-    #include "player.h"
-    #include "socket.h"
-    #include "map.h"
+#include "game.h"
+#include "client.h"
 
 /*----------MACROS----------*/
 
-    #define MAX_CLIENTS 100
-    #define BUFF_SIZE 1024
+#define MAX_CLIENTS 100
+#define BUFF_SIZE 1024
 
 /*----------TYPEDEFS----------*/
 
 typedef struct sockaddr_in sockaddr_in_t;
-
-typedef struct game_s {
-    int id_count;
-    int freq;
-    size_t time;
-    char **teams;
-    int nb_teams;
-    int nb_cli;
-    map_t map;
-    inventory_t loot;
-} game_t;
 
 typedef struct server_s {
     int port;
@@ -70,11 +46,6 @@ void help(void);
 **/
 int main_server(int ac, char **av);
 
-/**
-**@brief
-**
-**@param server
-**/
 void start_server(server_t *server);
 
 /**
@@ -114,13 +85,6 @@ void init_game(int ac, char **av, game_t *game);
 /**
 **@brief
 **
-**@param error
-**/
-void print_error(char *error);
-
-/**
-**@brief
-**
 **@param server
 **@param readfd
 **/
@@ -140,5 +104,3 @@ void manage_message(server_t *server, game_t *game, fd_set *readfd);
 **
 **/
 void free_memory(server_t *server, game_t *game);
-
-#endif /* !SERVER_H_ */

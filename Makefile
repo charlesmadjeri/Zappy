@@ -8,6 +8,7 @@
 all:
 	make -C GUI
 	make -C server
+	make -C AI
 
 clean:
 	make clean -C GUI
@@ -35,3 +36,4 @@ gui:
 
 ai:
 	make -C AI
+	

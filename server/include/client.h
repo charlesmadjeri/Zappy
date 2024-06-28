@@ -5,18 +5,30 @@
 ** client
 */
 
-#ifndef CLIENT_H_
-    #define CLIENT_H_
+#pragma once
 
-    #include "server.h"
-    #include "player.h"
+#include "zappy.h"
+#include "command.h"
+#include "player.h"
+
+/*----------MACROS----------*/
+
+    #define BUFF_SIZE_GUI 8000
+
+/*----------TYPEDEFS----------*/
+
+typedef struct sockaddr_in sockaddr_in_t;
+typedef struct linked_command_s linked_command_t;
+
+typedef struct sockaddr_in sockaddr_in_t;
 
 /*client_struct*/
 typedef struct client_s {
     int fd;
+    bool status;
     struct sockaddr_in address;
-    char *message;
-    char *send;
+    char write[BUFF_SIZE_GUI];
+    linked_command_t *commands;
     player_t *player;
 } client_t;
 
@@ -52,10 +64,17 @@ void append_new_client(client_t client, linked_client_t **link_list);
 void remove_client(linked_client_t **link_list, int fd);
 
 /**
-9* @brief
+** @brief
 **
 ** @param link_list
 **/
 void print_linked_client(linked_client_t *link_list);
 
-#endif /* !CLIENT_H_ */
+/**
+** @brief Get the command object
+**
+** @param buffer
+** @param valread
+** @param client
+**/
+void get_command(char *buffer, int valread, client_t *client, game_t *game);
