@@ -37,7 +37,7 @@ void main_loop(server_t *server, game_t *game)
 
     while (server->status == false) {
         reset_fd(server, &readfd, &writefd);
-        select(FD_SETSIZE, &readfd, &writefd, NULL, &server->time);
+        select(FD_SETSIZE, &readfd, &writefd, NULL, &game->tv);
         manage_connection(server, &readfd);
         manage_message(server, game, &readfd);
     }

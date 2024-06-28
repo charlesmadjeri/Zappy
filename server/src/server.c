@@ -16,8 +16,6 @@ void init_server(int ac, char **av, server_t *server)
     server->clients = NULL;
     server->socket_size = sizeof(struct sockaddr_in);
     server->status = false;
-    server->time.tv_sec = 0;
-    server->time.tv_usec = 0;
 }
 
 void start_server(server_t *server)
